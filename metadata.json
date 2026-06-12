@@ -1,0 +1,8 @@
+{
+  "name": "Umukozi",
+  "description": "UMUKOZI Labour Matching Platform - Connecting Workers and Employers Across Rwanda.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
