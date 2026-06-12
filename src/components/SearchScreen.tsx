@@ -38,7 +38,7 @@ export const SearchScreen: React.FC = () => {
           </div>
           <button onClick={() => setScreen("role")}
             className="text-gray-400 hover:text-gray-600 font-bold text-sm border-2 border-gray-200 px-4 py-2 rounded-xl">
-            <- {t.back}
+            Back
           </button>
         </div>
         <div className="bg-white rounded-2xl shadow p-4 mb-6 flex gap-3">
@@ -113,3 +113,4 @@ export const SearchScreen: React.FC = () => {
     </div>
   );
 };
+
