@@ -1,4 +1,5 @@
 ﻿import React from "react";
+import { UmukoziLogo } from "./UmukoziLogo";
 import { useApp } from "../context/AppContext";
 import { TRANSLATIONS } from "../data/mockData";
 
@@ -10,7 +11,8 @@ export const RoleScreen: React.FC = () => {
     <div className="min-h-screen bg-green-700 flex flex-col items-center justify-center p-6">
       <div className="bg-black rounded-3xl shadow-2xl p-8 w-full max-w-sm">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-black text-green-700">UMUKOZI</h1>
+          <div className="flex justify-center mb-2"><UmukoziLogo size={52} /></div>
+          <h1 className="text-3xl font-black text-green-400">UMUKOZI</h1>
           <p className="text-gray-300 font-bold mt-2">{t.chooseRole}</p>
         </div>
         <div className="flex flex-col gap-4">
@@ -41,4 +43,5 @@ export const RoleScreen: React.FC = () => {
     </div>
   );
 };
+
 

@@ -1,6 +1,5 @@
 ﻿export type Language = "rw" | "en" | "fr" | "sw";
 export type UserRole = "worker" | "employer";
-export type ExperienceLevel = "Beginner" | "Intermediate" | "Expert";
 
 export interface Location {
   province: string;
@@ -13,10 +12,12 @@ export interface WorkerProfile {
   id: string;
   fullName: string;
   phoneNumber: string;
-  nationalID?: string;
   location: Location;
   skills: string[];
   experiencedIn: string[];
+  summary?: string;
+  workTypes?: string;
+  availableAreas?: string;
   registeredAt: string;
 }
 
@@ -24,7 +25,6 @@ export interface EmployerProfile {
   id: string;
   fullName: string;
   phoneNumber: string;
-  nationalID?: string;
   location: Location;
   hasPaid: boolean;
   registeredAt: string;
@@ -32,9 +32,8 @@ export interface EmployerProfile {
 
 export interface AppState {
   language: Language;
-  screen: "language" | "role" | "register-worker" | "register-employer" | "payment" | "search";
+  screen: string;
   workers: WorkerProfile[];
   employer: EmployerProfile | null;
   hasPaid: boolean;
 }
-

@@ -77,6 +77,8 @@ export const SearchScreen: React.FC = () => {
                     <th className="p-3 text-left font-black">{t.neighborhood}</th>
                     <th className="p-3 text-left font-black">{t.skills}</th>
                     <th className="p-3 text-left font-black">{t.experience}</th>
+                     <th className="p-3 text-left font-black">Summary</th>
+                     <th className="p-3 text-left font-black">Available Areas</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -95,13 +97,9 @@ export const SearchScreen: React.FC = () => {
                           ))}
                         </div>
                       </td>
-                      <td className="p-3">
-                        <div className="flex flex-wrap gap-1">
-                          {w.experiencedIn.map(s => (
-                            <span key={s} className="bg-zinc-900 text-green-400 px-2 py-0.5 rounded-full text-xs font-bold">{s}</span>
-                          ))}
-                        </div>
-                      </td>
+                      <td className="p-3 font-bold text-gray-300 text-xs">{w.experiencedIn[0] || "-"}</td>
+                       <td className="p-3 font-bold text-gray-300 text-xs max-w-xs">{w.summary || "-"}</td>
+                       <td className="p-3 font-bold text-gray-300 text-xs">{w.availableAreas || "-"}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -113,5 +111,6 @@ export const SearchScreen: React.FC = () => {
     </div>
   );
 };
+
 
 
