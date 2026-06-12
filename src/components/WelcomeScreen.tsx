@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { useApp } from '../context/AppContext';
 import { Logo } from './Logo';
 import { TRANSLATIONS } from '../data/mockData';
@@ -59,8 +59,8 @@ export const WelcomeScreen: React.FC = () => {
               onClick={() => handleSelectLanguage(lang)}
               className={`px-3 py-1 text-xs rounded-md transition-all font-bold uppercase ${
                 language === lang 
-                  ? 'bg-[#00A550] text-black' 
-                  : 'text-gray-400 hover:bg-white/5 hover:text-white'
+                  ? 'bg-[#00A550] text-white' 
+                  : 'text-gray-500 hover:bg-black/5 hover:text-white'
               }`}
               id={`lang-btn-${lang}`}
             >
@@ -94,7 +94,7 @@ export const WelcomeScreen: React.FC = () => {
           <h2 className="text-xl md:text-2xl font-black text-white tracking-tight" id="welcome-title-h2">
             Amahitamo Yobora (Your Path)
           </h2>
-          <p className="text-xs text-gray-400 font-bold uppercase leading-relaxed font-sans">
+          <p className="text-xs text-gray-500 font-bold uppercase leading-relaxed font-sans">
             {language === 'rw' 
               ? 'Wifuza gukora cyangwa kwandika umukoresha? Hitamo icyiciro gikubera munsi.'
               : language === 'fr'
@@ -121,7 +121,7 @@ export const WelcomeScreen: React.FC = () => {
                 <span className="text-lg font-extrabold uppercase text-[#000000] tracking-wide">
                   {t.lookingForWork}
                 </span>
-                <span className="text-[11px] text-black/85 font-bold uppercase">
+                <span className="text-[11px] text-white/85 font-bold uppercase">
                   {language === 'rw' 
                     ? 'Kora umwirondoro w\'ubuntu (Free Registration)' 
                     : language === 'fr' 
@@ -138,11 +138,11 @@ export const WelcomeScreen: React.FC = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => handleSelectRole('employer')}
-            className="w-full bg-[#111111] text-[#00A550] border-2 border-[#00A550] hover:bg-white/5 p-5 rounded-2xl shadow-[5px_5px_0px_0px_rgba(0,165,80,0.5)] font-bold text-left flex items-center justify-between transition-all group cursor-pointer"
+            className="w-full bg-[#111111] text-[#00A550] border-2 border-[#00A550] hover:bg-black/5 p-5 rounded-2xl shadow-[5px_5px_0px_0px_rgba(0,165,80,0.5)] font-bold text-left flex items-center justify-between transition-all group cursor-pointer"
             id="btn-select-employer"
           >
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-[#00A550] rounded-xl text-black group-hover:scale-110 transition-transform">
+              <div className="p-3 bg-[#00A550] rounded-xl text-white group-hover:scale-110 transition-transform">
                 <Search size={24} />
               </div>
               <div className="flex flex-col text-left">
@@ -166,7 +166,7 @@ export const WelcomeScreen: React.FC = () => {
         <div className="text-center mt-8">
           <button 
             onClick={bypassAsGuest}
-            className="text-xs text-gray-400 hover:text-white underline font-bold uppercase tracking-wider cursor-pointer"
+            className="text-xs text-gray-500 hover:text-white underline font-bold uppercase tracking-wider cursor-pointer"
             id="btn-bypass-guest"
           >
             {language === 'rw' ? 'TEMBERERA UBUHINZI (Komeza nk\'Umukoresha Guest)' : 'Skip & Explore Portal as Guest'}
@@ -184,3 +184,4 @@ export const WelcomeScreen: React.FC = () => {
     </div>
   );
 };
+

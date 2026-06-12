@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { TRANSLATIONS } from '../data/mockData';
 import { Smartphone, CheckCircle, CreditCard, Loader2, AlertCircle, Sparkles } from 'lucide-react';
@@ -74,7 +74,7 @@ export const PaymentDialogue: React.FC<PaymentDialogueProps> = ({
       >
         {/* Yellow/Yellow-Orange header for MTN or Crimson Red for Airtel */}
         <div className={`p-5 text-white flex justify-between items-center transition-colors duration-300 ${
-          provider === 'MTN' ? 'bg-[#FFCC00] text-black' : 'bg-[#D00000] text-white'
+          provider === 'MTN' ? 'bg-[#FFCC00] text-white' : 'bg-[#D00000] text-white'
         }`} id="payment-provider-header">
           <div>
             <span className="text-[10px] uppercase font-black tracking-widest opacity-80">
@@ -107,7 +107,7 @@ export const PaymentDialogue: React.FC<PaymentDialogueProps> = ({
                   className={`py-3.5 px-4 rounded-xl border flex items-center justify-center gap-1.5 cursor-pointer uppercase font-extrabold ${
                     provider === 'MTN' 
                       ? 'border-[#FFCC00] bg-[#FFCC00]/5 text-[#FFCC00]' 
-                      : 'border-white/10 bg-black text-gray-400 hover:border-white/20'
+                      : 'border-white/10 bg-black text-gray-500 hover:border-white/20'
                   }`}
                   id="tab-momo-mtn"
                 >
@@ -120,7 +120,7 @@ export const PaymentDialogue: React.FC<PaymentDialogueProps> = ({
                   className={`py-3.5 px-4 rounded-xl border flex items-center justify-center gap-1.5 cursor-pointer uppercase font-extrabold ${
                     provider === 'Airtel' 
                       ? 'border-[#D00000] bg-[#D00000]/5 text-[#D00000]' 
-                      : 'border-white/10 bg-black text-gray-400 hover:border-white/20'
+                      : 'border-white/10 bg-black text-gray-500 hover:border-white/20'
                   }`}
                   id="tab-momo-airtel"
                 >
@@ -173,7 +173,7 @@ export const PaymentDialogue: React.FC<PaymentDialogueProps> = ({
               <Loader2 className="w-10 h-10 text-emerald-400 animate-spin" />
               <div>
                 <h4 className="text-sm font-black uppercase text-white">Contacting Gateway...</h4>
-                <p className="text-[10px] text-gray-400 uppercase mt-1 leading-relaxed">
+                <p className="text-[10px] text-gray-500 uppercase mt-1 leading-relaxed">
                   Securing mobile channels. Please do not leave the screen or turn off your device.
                 </p>
               </div>
@@ -195,7 +195,7 @@ export const PaymentDialogue: React.FC<PaymentDialogueProps> = ({
                   </p>
                 </div>
               </div>
-              <p className="text-[9px] text-gray-400 uppercase leading-snug font-sans">
+              <p className="text-[9px] text-gray-500 uppercase leading-snug font-sans">
                 (This simulates the MTN/Airtel network push alert that will reveal on the user's real phone)
               </p>
               <div className="flex gap-2 mt-1" id="ussd-confirmation-buttons">
@@ -229,7 +229,7 @@ export const PaymentDialogue: React.FC<PaymentDialogueProps> = ({
                 <h4 className="text-sm font-black uppercase text-[#00A550]">
                   {t.paySuccess}
                 </h4>
-                <p className="text-[10px] text-gray-400 uppercase mt-2 max-w-xs mx-auto leading-relaxed">
+                <p className="text-[10px] text-gray-500 uppercase mt-2 max-w-xs mx-auto leading-relaxed">
                   {t.paySuccessMsg}
                 </p>
               </div>
@@ -243,3 +243,4 @@ export const PaymentDialogue: React.FC<PaymentDialogueProps> = ({
     </div>
   );
 };
+

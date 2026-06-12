@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { Handshake } from 'lucide-react';
 
@@ -71,17 +71,18 @@ export const Logo: React.FC<LogoProps> = ({ size = 'md', showTagline = true }) =
       </div>
       
       {showTagline && (
-        <p className={`${sizes.tag} mt-1.5 text-center text-gray-400 max-w-xs uppercase bg-white/5 px-2 py-0.5 rounded border border-white/15 italic`}>
+        <p className={`${sizes.tag} mt-1.5 text-center text-gray-500 max-w-xs uppercase bg-black/5 px-2 py-0.5 rounded border border-white/15 italic`}>
           {getTagline()}
         </p>
       )}
 
       {/* Secret click feedback to guide users and verify easter egg during testing */}
       {tapCount > 0 && tapCount < 20 && (
-        <span className="text-[10px] text-[#00A550] bg-white/5 px-2 py-0.5 mt-1 rounded animate-bounce border border-[#00A550]/20">
+        <span className="text-[10px] text-[#00A550] bg-black/5 px-2 py-0.5 mt-1 rounded animate-bounce border border-[#00A550]/20">
           🔑 Admin Panel Easter Egg tap: {tapCount}/20
         </span>
       )}
     </div>
   );
 };
+

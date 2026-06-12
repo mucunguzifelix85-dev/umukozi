@@ -39,37 +39,37 @@ export const EmployerRegistration: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
-      <div className="max-w-lg mx-auto bg-white rounded-3xl shadow-xl p-6">
+    <div className="min-h-screen bg-black py-8 px-4">
+      <div className="max-w-lg mx-auto bg-black rounded-3xl shadow-xl p-6">
         <div className="text-center mb-6">
           <h1 className="text-2xl font-black text-green-700">UMUKOZI</h1>
-          <p className="text-gray-600 font-bold mt-1">{t.registerEmployer}</p>
-          <div className="mt-2 bg-yellow-100 border border-yellow-400 rounded-xl p-2 text-yellow-800 text-xs font-bold">
+          <p className="text-gray-300 font-bold mt-1">{t.registerEmployer}</p>
+          <div className="mt-2 bg-zinc-900 border border-green-500 rounded-xl p-2 text-green-300 text-xs font-bold">
             💰 {t.pay500}
           </div>
         </div>
 
-        {error && <div className="bg-red-100 text-red-700 p-3 rounded-xl mb-4 font-bold text-sm">{error}</div>}
+        {error && <div className="bg-zinc-900 text-green-300 p-3 rounded-xl mb-4 font-bold text-sm">{error}</div>}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
             <label className="text-xs font-black text-gray-500 uppercase">{t.fullName} *</label>
             <input value={fullName} onChange={e => setFullName(e.target.value)}
-              className="w-full border-2 border-gray-200 rounded-xl p-3 mt-1 font-bold focus:border-green-500 outline-none"
+              className="w-full border-2 border-green-800 rounded-xl p-3 mt-1 font-bold focus:border-green-400 outline-none"
               placeholder="e.g. Alphonse Mutabazi" />
           </div>
 
           <div>
             <label className="text-xs font-black text-gray-500 uppercase">{t.phone} *</label>
             <input value={phone} onChange={e => setPhone(e.target.value)}
-              className="w-full border-2 border-gray-200 rounded-xl p-3 mt-1 font-bold focus:border-green-500 outline-none"
+              className="w-full border-2 border-green-800 rounded-xl p-3 mt-1 font-bold focus:border-green-400 outline-none"
               placeholder="+250 788 000 000" />
           </div>
 
           <div>
             <label className="text-xs font-black text-gray-500 uppercase">{t.nationalId}</label>
             <input value={nationalId} onChange={e => setNationalId(e.target.value)}
-              className="w-full border-2 border-gray-200 rounded-xl p-3 mt-1 font-bold focus:border-green-500 outline-none"
+              className="w-full border-2 border-green-800 rounded-xl p-3 mt-1 font-bold focus:border-green-400 outline-none"
               placeholder="1199xxxxxxxxxxxxxxx" />
           </div>
 
@@ -78,7 +78,7 @@ export const EmployerRegistration: React.FC = () => {
             <div>
               <label className="text-xs font-black text-gray-500 uppercase">{t.district} *</label>
               <select value={district} onChange={e => { setDistrict(e.target.value); setSector(""); }}
-                className="w-full border-2 border-gray-200 rounded-xl p-3 mt-1 font-bold focus:border-green-500 outline-none bg-white">
+                className="w-full border-2 border-green-800 rounded-xl p-3 mt-1 font-bold focus:border-green-400 outline-none bg-black">
                 <option value="">{t.selectDistrict}</option>
                 {allDistricts.map(d => <option key={d} value={d}>{d}</option>)}
               </select>
@@ -87,7 +87,7 @@ export const EmployerRegistration: React.FC = () => {
               <label className="text-xs font-black text-gray-500 uppercase">{t.sector} *</label>
               <select value={sector} onChange={e => setSector(e.target.value)}
                 disabled={!district}
-                className="w-full border-2 border-gray-200 rounded-xl p-3 mt-1 font-bold focus:border-green-500 outline-none bg-white disabled:opacity-50">
+                className="w-full border-2 border-green-800 rounded-xl p-3 mt-1 font-bold focus:border-green-400 outline-none bg-black disabled:opacity-50">
                 <option value="">{t.selectSector}</option>
                 {sectors.map(s => <option key={s} value={s}>{s}</option>)}
               </select>
@@ -95,7 +95,7 @@ export const EmployerRegistration: React.FC = () => {
             <div>
               <label className="text-xs font-black text-gray-500 uppercase">{t.neighborhood} *</label>
               <input value={neighborhood} onChange={e => setNeighborhood(e.target.value)}
-                className="w-full border-2 border-gray-200 rounded-xl p-3 mt-1 font-bold focus:border-green-500 outline-none"
+                className="w-full border-2 border-green-800 rounded-xl p-3 mt-1 font-bold focus:border-green-400 outline-none"
                 placeholder="e.g. Kicukiro, near Total station" />
             </div>
           </div>
@@ -105,7 +105,7 @@ export const EmployerRegistration: React.FC = () => {
             {t.submit} → Pay 500 RWF
           </button>
           <button type="button" onClick={() => setScreen("role")}
-            className="w-full text-center text-gray-400 hover:text-gray-600 font-bold text-sm py-2">
+            className="w-full text-center text-gray-500 hover:text-gray-300 font-bold text-sm py-2">
             ← {t.back}
           </button>
         </form>
@@ -113,3 +113,4 @@ export const EmployerRegistration: React.FC = () => {
     </div>
   );
 };
+

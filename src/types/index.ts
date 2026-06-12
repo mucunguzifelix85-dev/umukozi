@@ -37,3 +37,4 @@ export interface AppState {
   employer: EmployerProfile | null;
   hasPaid: boolean;
 }
+

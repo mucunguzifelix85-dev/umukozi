@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { Location } from '../types';
 import { PROVINCES, DISTRICTS, getSectorsForDistrict, getCellsForSector } from '../data/locations';
@@ -207,7 +207,7 @@ export const RegistrationForm: React.FC = () => {
             className="fixed top-4 left-1/2 -translate-x-1/2 w-full max-w-sm bg-black text-white border-2 border-emerald-500 rounded-xl p-4 shadow-2xl z-50 flex items-start gap-3.5 feedback-toast"
             id="otp-sms-simulated-box"
           >
-            <div className="bg-[#00A550] p-2 text-black rounded-lg">
+            <div className="bg-[#00A550] p-2 text-white rounded-lg">
               <Phone size={18} className="animate-bounce" />
             </div>
             <div className="flex-1">
@@ -227,7 +227,7 @@ export const RegistrationForm: React.FC = () => {
         {/* Back Button */}
         <button 
           onClick={() => setActiveScreen('welcome')}
-          className="absolute top-6 left-6 p-2 rounded-lg border border-white/20 hover:bg-white/5 text-white cursor-pointer transition-colors"
+          className="absolute top-6 left-6 p-2 rounded-lg border border-white/20 hover:bg-black/5 text-white cursor-pointer transition-colors"
           id="btn-back-to-welcome-from-reg"
         >
           <ArrowLeft size={16} />
@@ -241,7 +241,7 @@ export const RegistrationForm: React.FC = () => {
               : (language === 'rw' ? 'KWIYANDIKISHA NK\'UMUKORESHA' : 'EMPLOYER REGISTRATION')
               }
           </h1>
-          <p className="text-xs text-gray-400 capitalize bg-white/5 border border-white/10 py-1.5 px-3 rounded-lg inline-block w-fit mx-auto mt-2 italic font-bold">
+          <p className="text-xs text-gray-500 capitalize bg-black/5 border border-white/10 py-1.5 px-3 rounded-lg inline-block w-fit mx-auto mt-2 italic font-bold">
             {isWorkerForm ? t.registrationFree : t.registrationFeeText}
           </p>
         </div>
@@ -316,7 +316,7 @@ export const RegistrationForm: React.FC = () => {
                 value={phoneNumber}
                 disabled={isPhoneVerified}
                 onChange={(e) => setPhoneNumber(e.target.value)}
-                className="flex-1 border border-white/15 p-3 rounded-xl text-xs uppercase bg-black text-white font-bold outline-none disabled:bg-white/5 disabled:border-white/10 disabled:text-gray-500"
+                className="flex-1 border border-white/15 p-3 rounded-xl text-xs uppercase bg-black text-white font-bold outline-none disabled:bg-black/5 disabled:border-white/10 disabled:text-gray-500"
                 id="field-phone"
                 required
               />
@@ -324,7 +324,7 @@ export const RegistrationForm: React.FC = () => {
                 <button 
                   type="button" 
                   onClick={handleSendOtp}
-                  className="bg-[#00A550] text-black hover:bg-emerald-600 border border-transparent px-4 rounded-xl text-xs uppercase font-extrabold cursor-pointer transition-colors"
+                  className="bg-[#00A550] text-white hover:bg-emerald-600 border border-transparent px-4 rounded-xl text-xs uppercase font-extrabold cursor-pointer transition-colors"
                   id="btn-send-otp"
                 >
                   Send OTP 💬
@@ -356,7 +356,7 @@ export const RegistrationForm: React.FC = () => {
                   <button 
                     type="button" 
                     onClick={handleVerifyOtp}
-                    className="bg-[#00A550] text-black px-4 py-2.5 rounded-lg text-xs uppercase font-black cursor-pointer"
+                    className="bg-[#00A550] text-white px-4 py-2.5 rounded-lg text-xs uppercase font-black cursor-pointer"
                     id="btn-verify-otp-submit"
                   >
                     Confirm ✅
@@ -373,7 +373,7 @@ export const RegistrationForm: React.FC = () => {
           {isWorkerForm && (
             <div className="flex flex-col gap-1.5" id="input-group-nationalid">
               <label className="text-xs text-gray-300 uppercase font-black flex items-center gap-1">
-                <Check size={12} className="text-gray-400" />
+                <Check size={12} className="text-gray-500" />
                 {t.nationalId}
               </label>
               <input 
@@ -396,7 +396,7 @@ export const RegistrationForm: React.FC = () => {
 
             {/* 1. Province Selector */}
             <div className="flex flex-col gap-1" id="select-group-province">
-              <label className="text-[10px] uppercase font-black text-gray-400">1. {t.province}</label>
+              <label className="text-[10px] uppercase font-black text-gray-500">1. {t.province}</label>
               <select 
                 value={selectedProvince}
                 onChange={(e) => setSelectedProvince(e.target.value)}
@@ -411,12 +411,12 @@ export const RegistrationForm: React.FC = () => {
 
             {/* 2. District Selector */}
             <div className="flex flex-col gap-1" id="select-group-district">
-              <label className="text-[10px] uppercase font-black text-gray-400">2. {t.district}</label>
+              <label className="text-[10px] uppercase font-black text-gray-500">2. {t.district}</label>
               <select 
                 value={selectedDistrict}
                 disabled={!selectedProvince}
                 onChange={(e) => setSelectedDistrict(e.target.value)}
-                className="w-full border border-white/15 p-2.5 rounded-xl text-xs bg-black text-white font-bold uppercase disabled:bg-white/5 disabled:border-white/5 disabled:text-gray-600 cursor-pointer"
+                className="w-full border border-white/15 p-2.5 rounded-xl text-xs bg-black text-white font-bold uppercase disabled:bg-black/5 disabled:border-white/5 disabled:text-gray-300 cursor-pointer"
                 id="select-district"
                 required
               >
@@ -427,12 +427,12 @@ export const RegistrationForm: React.FC = () => {
 
             {/* 3. Sector Selector */}
             <div className="flex flex-col gap-1" id="select-group-sector">
-              <label className="text-[10px] uppercase font-black text-gray-400">3. {t.sector}</label>
+              <label className="text-[10px] uppercase font-black text-gray-500">3. {t.sector}</label>
               <select 
                 value={selectedSector}
                 disabled={!selectedDistrict}
                 onChange={(e) => setSelectedSector(e.target.value)}
-                className="w-full border border-white/15 p-2.5 rounded-xl text-xs bg-black text-white font-bold uppercase disabled:bg-white/5 disabled:border-white/5 disabled:text-gray-600 cursor-pointer"
+                className="w-full border border-white/15 p-2.5 rounded-xl text-xs bg-black text-white font-bold uppercase disabled:bg-black/5 disabled:border-white/5 disabled:text-gray-300 cursor-pointer"
                 id="select-sector"
                 required
               >
@@ -443,12 +443,12 @@ export const RegistrationForm: React.FC = () => {
 
             {/* 4. Cell Selector */}
             <div className="flex flex-col gap-1" id="select-group-cell">
-              <label className="text-[10px] uppercase font-black text-gray-400">4. {t.cell}</label>
+              <label className="text-[10px] uppercase font-black text-gray-500">4. {t.cell}</label>
               <select 
                 value={selectedCell}
                 disabled={!selectedSector}
                 onChange={(e) => setSelectedCell(e.target.value)}
-                className="w-full border border-white/15 p-2.5 rounded-xl text-xs bg-black text-white font-bold uppercase disabled:bg-white/5 disabled:border-white/5 disabled:text-gray-600 cursor-pointer"
+                className="w-full border border-white/15 p-2.5 rounded-xl text-xs bg-black text-white font-bold uppercase disabled:bg-black/5 disabled:border-white/5 disabled:text-gray-300 cursor-pointer"
                 id="select-cell"
                 required
               >
@@ -459,14 +459,14 @@ export const RegistrationForm: React.FC = () => {
 
             {/* 5. Village Input */}
             <div className="flex flex-col gap-1" id="select-group-village">
-              <label className="text-[10px] uppercase font-black text-gray-400">5. {t.village} *</label>
+              <label className="text-[10px] uppercase font-black text-gray-500">5. {t.village} *</label>
               <input 
                 type="text" 
                 placeholder={language === 'rw' ? "Yandika akazu cyangwa umudugudu aha..." : "Type Village or street location manually..."}
                 value={village}
                 disabled={!selectedCell}
                 onChange={(e) => setVillage(e.target.value)}
-                className="w-full border border-white/15 p-2.5 rounded-xl text-xs bg-black text-white font-bold uppercase disabled:bg-white/5 disabled:border-white/10 disabled:text-gray-600 outline-none"
+                className="w-full border border-white/15 p-2.5 rounded-xl text-xs bg-black text-white font-bold uppercase disabled:bg-black/5 disabled:border-white/10 disabled:text-gray-300 outline-none"
                 id="select-village"
                 required
               />
@@ -482,7 +482,7 @@ export const RegistrationForm: React.FC = () => {
 
               {/* Skill dropdown */}
               <div className="flex flex-col gap-1" id="skill-group-category">
-                <label className="text-[10px] uppercase font-black text-gray-400">{t.skillCategory}</label>
+                <label className="text-[10px] uppercase font-black text-gray-500">{t.skillCategory}</label>
                 <select 
                   value={selectedSkill}
                   onChange={(e) => setSelectedSkill(e.target.value)}
@@ -497,7 +497,7 @@ export const RegistrationForm: React.FC = () => {
 
               {/* Experience dropdown */}
               <div className="flex flex-col gap-1" id="skill-group-exp">
-                <label className="text-[10px] uppercase font-black text-gray-400">{t.expLevel}</label>
+                <label className="text-[10px] uppercase font-black text-gray-500">{t.expLevel}</label>
                 <select 
                   value={selectedExperience}
                   onChange={(e) => setSelectedExperience(e.target.value as any)}
@@ -522,7 +522,7 @@ export const RegistrationForm: React.FC = () => {
 
               {/* Skill and Duty categories needed */}
               <div className="flex flex-col gap-1" id="demand-group-skill">
-                <label className="text-[10px] uppercase font-black text-gray-400">{language === 'rw' ? 'Ubwoko bw\'Umukoziukeneye' : 'Type of Worker Needed'}</label>
+                <label className="text-[10px] uppercase font-black text-gray-500">{language === 'rw' ? 'Ubwoko bw\'Umukoziukeneye' : 'Type of Worker Needed'}</label>
                 <select 
                   value={selectedSkill}
                   onChange={(e) => setSelectedSkill(e.target.value)}
@@ -537,7 +537,7 @@ export const RegistrationForm: React.FC = () => {
 
               {/* Duration needed */}
               <div className="flex flex-col gap-1" id="demand-group-duration">
-                <label className="text-[10px] uppercase font-black text-gray-400">{language === 'rw' ? 'Igihe Akazi kazamara' : 'Duration of Work Needed'}</label>
+                <label className="text-[10px] uppercase font-black text-gray-500">{language === 'rw' ? 'Igihe Akazi kazamara' : 'Duration of Work Needed'}</label>
                 <select 
                   value={selectedDuration}
                   onChange={(e) => setSelectedDuration(e.target.value)}
@@ -565,3 +565,4 @@ export const RegistrationForm: React.FC = () => {
     </div>
   );
 };
+

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { TRANSLATIONS, SKILL_CATEGORIES } from '../data/mockData';
 import { Logo } from './Logo';
@@ -140,7 +140,7 @@ export const Dashboard: React.FC = () => {
               />
             </div>
           ) : (
-            <span className="text-[10px] bg-white/5 text-gray-300 px-3 py-1.5 rounded-full border border-white/10 uppercase">
+            <span className="text-[10px] bg-black/5 text-gray-300 px-3 py-1.5 rounded-full border border-white/10 uppercase">
               Guest Mode explorer
             </span>
           )}
@@ -170,7 +170,7 @@ export const Dashboard: React.FC = () => {
                         ? `Muraho, ${currentUser ? currentUser.fullName : 'Muryango'}! Kaze Kuri Umukozi.` 
                         : `Muraho, ${currentUser ? currentUser.fullName : 'Guest'}! Welcome to Umukozi.`}
                     </h2>
-                    <p className="text-xs text-gray-400 mt-2 font-bold uppercase leading-relaxed max-w-lg font-sans">
+                    <p className="text-xs text-gray-500 mt-2 font-bold uppercase leading-relaxed max-w-lg font-sans">
                       Connecting licensed laborers, builders, mechanics, drivers, or domestic assistants instantly with verified contractors throughout the territory of Rwanda.
                     </p>
                   </div>
@@ -178,7 +178,7 @@ export const Dashboard: React.FC = () => {
                   {currentUserType === 'worker' && !(currentUser as any).isPremium && (
                     <button 
                       onClick={() => setShowSelfBoostGate(true)}
-                      className="bg-[#00A550] hover:bg-emerald-400 border border-transparent text-black px-4.5 py-3 rounded-xl text-xs font-black uppercase tracking-wide cursor-pointer flex items-center gap-1.5 shrink-0 transition"
+                      className="bg-[#00A550] hover:bg-emerald-400 border border-transparent text-white px-4.5 py-3 rounded-xl text-xs font-black uppercase tracking-wide cursor-pointer flex items-center gap-1.5 shrink-0 transition"
                       id="btn-self-promo-boost"
                     >
                       <Sparkles size={14} /> Boost My Profile Now
@@ -188,7 +188,7 @@ export const Dashboard: React.FC = () => {
 
                 {/* Quick Category shortcuts */}
                 <div className="text-left" id="quick-shortcuts">
-                  <span className="text-[11px] text-gray-400 uppercase font-black tracking-widest block mb-3">
+                  <span className="text-[11px] text-gray-500 uppercase font-black tracking-widest block mb-3">
                     Fast Finder Specialties
                   </span>
                   
@@ -209,7 +209,7 @@ export const Dashboard: React.FC = () => {
                 {/* Boosted Workers horizontale ribbon */}
                 <div className="text-left" id="featured-carousel">
                   <div className="flex justify-between items-center mb-3">
-                    <span className="text-[11px] text-gray-400 uppercase font-black tracking-widest block">
+                    <span className="text-[11px] text-gray-500 uppercase font-black tracking-widest block">
                       {t.featuredWorkers}
                     </span>
                     <button 
@@ -262,13 +262,13 @@ export const Dashboard: React.FC = () => {
                   
                   {/* Job offers */}
                   <div className="bg-[#111111] border border-white/10 rounded-3xl p-5 text-left flex flex-col gap-4" id="home-jobs-card">
-                    <span className="text-[11px] text-gray-400 uppercase font-black tracking-widest pb-2 border-b border-white/10 block">
+                    <span className="text-[11px] text-gray-500 uppercase font-black tracking-widest pb-2 border-b border-white/10 block">
                       {t.recentJobs}
                     </span>
 
                     <div className="flex flex-col gap-3" id="home-jobs-list">
                       {jobs.map((job) => (
-                        <div key={job.id} className="p-4 bg-black border border-white/10 rounded-2xl flex flex-col gap-2 relative hover:bg-white/5 transition" id={`job-item-${job.id}`}>
+                        <div key={job.id} className="p-4 bg-black border border-white/10 rounded-2xl flex flex-col gap-2 relative hover:bg-black/5 transition" id={`job-item-${job.id}`}>
                           <div className="flex justify-between items-start flex-wrap gap-2 text-xs">
                             <div>
                               <span className="text-[9px] text-emerald-450 bg-[#00A550]/15 px-2 py-0.5 border border-[#00A550]/20 rounded uppercase font-black block w-fit mb-1">{job.category}</span>
@@ -277,7 +277,7 @@ export const Dashboard: React.FC = () => {
                             <span className="text-[9px] text-[#00A550] font-black">{job.budget}</span>
                           </div>
 
-                          <div className="text-[10px] text-gray-400 flex justify-between mt-2 pt-2 border-t border-dashed border-white/10 font-bold">
+                          <div className="text-[10px] text-gray-500 flex justify-between mt-2 pt-2 border-t border-dashed border-white/10 font-bold">
                             <span className="flex items-center gap-1 uppercase">
                               <MapPin size={10} className="text-[#00A550]" />
                               {job.location.district} › {job.location.sector}
@@ -291,7 +291,7 @@ export const Dashboard: React.FC = () => {
 
                   {/* Platforms announcements */}
                   <div className="bg-[#111111] border border-white/10 rounded-3xl p-5 text-left flex flex-col gap-4" id="home-announcements-card">
-                    <span className="text-[11px] text-gray-400 uppercase font-black tracking-widest pb-2 border-b border-white/10 block">
+                    <span className="text-[11px] text-gray-500 uppercase font-black tracking-widest pb-2 border-b border-white/10 block">
                       🔔 Latest Announcements & Policy Updates
                     </span>
 
@@ -305,7 +305,7 @@ export const Dashboard: React.FC = () => {
                       </div>
 
                       <div className="p-4 bg-black border border-white/10 rounded-2xl flex flex-col gap-1.5" id="ann-2">
-                        <span className="text-[8px] bg-white/5 text-gray-300 border border-white/10 px-1.5 py-0.2 rounded w-fit uppercase font-bold">Billing standards</span>
+                        <span className="text-[8px] bg-black/5 text-gray-300 border border-white/10 px-1.5 py-0.2 rounded w-fit uppercase font-bold">Billing standards</span>
                         <h4 className="text-xs font-black text-white uppercase">Standardizing Service Tariffs</h4>
                         <p className="text-[10.5px] text-gray-300 font-bold uppercase leading-relaxed mt-1">
                           Remember that the matching portal operates flat 500 RWF for unlocking mobile phone contacts. Report anyone attempting to ask for unverified fees off-platform.
@@ -339,7 +339,7 @@ export const Dashboard: React.FC = () => {
                         key={worker.id}
                         onClick={() => setSelectedChatUser(worker.id)}
                         className={`p-4 border-b border-white/5 cursor-pointer flex items-center gap-3.5 transition ${
-                          selectedChatUser === worker.id ? 'bg-[#00A550]/10 text-white border-l-4 border-l-[#00A550]' : 'hover:bg-white/5 text-gray-400'
+                          selectedChatUser === worker.id ? 'bg-[#00A550]/10 text-white border-l-4 border-l-[#00A550]' : 'hover:bg-black/5 text-gray-500'
                         }`}
                         id={`chat-user-${worker.id}`}
                       >
@@ -402,7 +402,7 @@ export const Dashboard: React.FC = () => {
                         />
                         <button 
                           type="submit" 
-                          className="bg-[#00A550] hover:bg-emerald-600 border border-transparent text-black px-5 rounded-xl cursor-pointer font-black uppercase text-xs flex items-center justify-center gap-1"
+                          className="bg-[#00A550] hover:bg-emerald-600 border border-transparent text-white px-5 rounded-xl cursor-pointer font-black uppercase text-xs flex items-center justify-center gap-1"
                           id="btn-chat-send"
                         >
                           Send <Send size={14} />
@@ -410,10 +410,10 @@ export const Dashboard: React.FC = () => {
                       </form>
                     </div>
                   ) : (
-                    <div className="my-auto text-center px-6 py-20 flex flex-col items-center gap-2 text-gray-400" id="chat-instructions-block">
+                    <div className="my-auto text-center px-6 py-20 flex flex-col items-center gap-2 text-gray-500" id="chat-instructions-block">
                       <MessageSquare size={44} className="text-[#00A550]/80 animate-pulse" />
                       <h3 className="text-sm font-black uppercase text-white">Specialist Chats</h3>
-                      <p className="text-xs text-gray-400 uppercase max-w-xs mx-auto leading-relaxed">
+                      <p className="text-xs text-gray-500 uppercase max-w-xs mx-auto leading-relaxed">
                         Choose an unlocked worker specialist on the left sidebar to simulate and coordinate contract wage talks.
                       </p>
                     </div>
@@ -444,7 +444,7 @@ export const Dashboard: React.FC = () => {
 
                 <div className="flex flex-col gap-3" id="notifications-stack">
                   {notifications.length === 0 ? (
-                    <p className="text-xs text-gray-400 uppercase italic py-10 text-center">No alert flags have been triggered yet.</p>
+                    <p className="text-xs text-gray-500 uppercase italic py-10 text-center">No alert flags have been triggered yet.</p>
                   ) : (
                     notifications.map((note) => (
                       <div 
@@ -459,7 +459,7 @@ export const Dashboard: React.FC = () => {
                         </div>
 
                         <div className="flex-1">
-                          <div className="flex justify-between items-center mb-1 text-[9px] text-gray-400">
+                          <div className="flex justify-between items-center mb-1 text-[9px] text-gray-500">
                             <span className="font-black uppercase tracking-wider text-[#00A550]">{note.type} update</span>
                             <span>{note.timestamp}</span>
                           </div>
@@ -491,7 +491,7 @@ export const Dashboard: React.FC = () => {
                         <span className="text-lg font-black text-white leading-tight">
                           {currentUser.fullName}
                         </span>
-                        <span className="text-gray-400 font-bold font-sans tracking-wide mt-0.5">
+                        <span className="text-gray-500 font-bold font-sans tracking-wide mt-0.5">
                           Account: {currentUser.phoneNumber}
                         </span>
                         <span className="text-[#00A550] font-black uppercase text-[10px] mt-1 bg-[#00A550]/10 px-2 py-0.5 rounded border border-[#00A550]/20 w-fit">
@@ -505,11 +505,11 @@ export const Dashboard: React.FC = () => {
                       <div className="border-t border-dashed border-white/10 pt-5 flex flex-col gap-4 text-xs" id="worker-details-profile">
                         <div className="grid grid-cols-2 gap-3 uppercase">
                           <div className="bg-black border border-white/10 p-3 rounded-xl">
-                            <span className="text-[8px] text-gray-400 font-black block">Specialty specialty</span>
+                            <span className="text-[8px] text-gray-500 font-black block">Specialty specialty</span>
                             <span className="text-xs text-white font-black">{(currentUser as any).category}</span>
                           </div>
                           <div className="bg-black border border-white/10 p-3 rounded-xl">
-                            <span className="text-[8px] text-gray-400 font-black block">Experience Rank</span>
+                            <span className="text-[8px] text-gray-500 font-black block">Experience Rank</span>
                             <span className="text-xs text-white font-black">{(currentUser as any).experience} Level</span>
                           </div>
                         </div>
@@ -527,7 +527,7 @@ export const Dashboard: React.FC = () => {
 
                           <button
                             onClick={() => setShowSelfBoostGate(true)}
-                            className="bg-[#00a550] hover:bg-emerald-600 text-black px-4.5 py-3 rounded-xl text-xs font-black uppercase cursor-pointer shrink-0 transition"
+                            className="bg-[#00a550] hover:bg-emerald-600 text-white px-4.5 py-3 rounded-xl text-xs font-black uppercase cursor-pointer shrink-0 transition"
                             id="btn-self-promo-boost-momo"
                           >
                             Pay 2,000 RWF MoM
@@ -539,21 +539,21 @@ export const Dashboard: React.FC = () => {
                       <div className="border-t border-dashed border-white/10 pt-5 flex flex-col gap-4 text-xs uppercase text-left" id="employer-details-profile">
                         <div className="grid grid-cols-2 gap-3">
                           <div className="bg-black border border-white/10 p-3 rounded-xl">
-                            <span className="text-[8px] text-gray-400 font-black block">Core category needed</span>
+                            <span className="text-[8px] text-gray-500 font-black block">Core category needed</span>
                             <span className="text-xs text-white font-black">{(currentUser as any).categoryNeeded || 'All Trades'}</span>
                           </div>
                           <div className="bg-black border border-white/10 p-3 rounded-xl">
-                            <span className="text-[8px] text-gray-400 font-black block">Contract duration needed</span>
+                            <span className="text-[8px] text-gray-500 font-black block">Contract duration needed</span>
                             <span className="text-xs text-white font-black">{(currentUser as any).workDuration || 'Ad-Hoc'}</span>
                           </div>
                         </div>
 
                         {/* Employer MoMo Logs */}
                         <div className="flex flex-col gap-2" id="employer-unlocked-logs">
-                          <span className="text-[9px] text-gray-400 font-black">Unlocked labor profiles catalog:</span>
+                          <span className="text-[9px] text-gray-500 font-black">Unlocked labor profiles catalog:</span>
                           <div className="bg-black p-4 rounded-xl border border-white/10 flex flex-col gap-1 text-[10px]" id="unlocked-details-container">
                             {((currentUser as any).unlockedWorkers || []).length === 0 ? (
-                              <p className="text-[9.5px] text-gray-400 italic py-2">No contact reveals processed yet. Unlock numbers on individual cards.</p>
+                              <p className="text-[9.5px] text-gray-500 italic py-2">No contact reveals processed yet. Unlock numbers on individual cards.</p>
                             ) : (
                               <div className="flex flex-col gap-2">
                                 <span className="font-extrabold text-[#00A550]">SUCCESSFULLY UNLOCKED IN THIS SESSION:</span>
@@ -573,7 +573,7 @@ export const Dashboard: React.FC = () => {
                     {/* App terms of use list */}
                     <div className="border-t border-white/10 pt-4 flex flex-col gap-1.5" id="app-about">
                       <span className="text-[9px] text-gray-500 uppercase font-black">Platform Registry Coordinates</span>
-                      <p className="text-[10px] text-gray-400 leading-normal uppercase font-sans">
+                      <p className="text-[10px] text-gray-500 leading-normal uppercase font-sans">
                         Umukozi matches connects local labor with developers legally. By using this software, both parties agree to standard wage guidelines and national labor security guidelines.
                       </p>
                     </div>
@@ -604,7 +604,7 @@ export const Dashboard: React.FC = () => {
             setCurrentTab('home');
           }}
           className={`flex flex-col items-center justify-center p-2 text-center transition cursor-pointer select-none ${
-            currentTab === 'home' && !selectedWorkerId ? 'text-[#00A550]' : 'text-gray-400 hover:text-white'
+            currentTab === 'home' && !selectedWorkerId ? 'text-[#00A550]' : 'text-gray-500 hover:text-white'
           }`}
           id="btn-nav-home"
         >
@@ -619,7 +619,7 @@ export const Dashboard: React.FC = () => {
             setCurrentTab('search');
           }}
           className={`flex flex-col items-center justify-center p-2 text-center transition cursor-pointer select-none ${
-            currentTab === 'search' || selectedWorkerId ? 'text-[#00A550]' : 'text-gray-400 hover:text-white'
+            currentTab === 'search' || selectedWorkerId ? 'text-[#00A550]' : 'text-gray-500 hover:text-white'
           }`}
           id="btn-nav-search"
         >
@@ -634,7 +634,7 @@ export const Dashboard: React.FC = () => {
             setCurrentTab('messages');
           }}
           className={`flex flex-col items-center justify-center p-2 text-center transition cursor-pointer select-none ${
-            currentTab === 'messages' && !selectedWorkerId ? 'text-[#00A550]' : 'text-gray-400 hover:text-white'
+            currentTab === 'messages' && !selectedWorkerId ? 'text-[#00A550]' : 'text-gray-500 hover:text-white'
           }`}
           id="btn-nav-messages"
         >
@@ -649,7 +649,7 @@ export const Dashboard: React.FC = () => {
             setCurrentTab('notifications');
           }}
           className={`flex flex-col items-center justify-center p-2 text-center transition cursor-pointer select-none relative ${
-            currentTab === 'notifications' && !selectedWorkerId ? 'text-[#00A550]' : 'text-gray-400 hover:text-white'
+            currentTab === 'notifications' && !selectedWorkerId ? 'text-[#00A550]' : 'text-gray-500 hover:text-white'
           }`}
           id="btn-nav-notifications"
         >
@@ -671,7 +671,7 @@ export const Dashboard: React.FC = () => {
             setCurrentTab('profile');
           }}
           className={`flex flex-col items-center justify-center p-2 text-center transition cursor-pointer select-none ${
-            currentTab === 'profile' && !selectedWorkerId ? 'text-[#00A550]' : 'text-gray-400 hover:text-white'
+            currentTab === 'profile' && !selectedWorkerId ? 'text-[#00A550]' : 'text-gray-500 hover:text-white'
           }`}
           id="btn-nav-profile"
         >
@@ -683,3 +683,4 @@ export const Dashboard: React.FC = () => {
     </div>
   );
 };
+

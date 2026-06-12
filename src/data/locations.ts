@@ -1,4 +1,4 @@
-export const PROVINCES = [
+﻿export const PROVINCES = [
   'Kigali City (Umujyi wa Kigali)',
   'Northern Province (Amajyaruguru)',
   'Eastern Province (Iburasirazuba)',
@@ -111,3 +111,4 @@ export function getCellsForSector(sector: string): string[] {
     `Iterambere`
   ];
 }
+

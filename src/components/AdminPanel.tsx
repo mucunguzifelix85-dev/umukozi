@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { TRANSLATIONS } from '../data/mockData';
 import { 
@@ -47,7 +47,7 @@ export const AdminPanel: React.FC = () => {
           <h2 className="text-xl md:text-2xl font-black uppercase text-white flex items-center gap-2">
             🛡️ UMUKOZI ADMIN PANEL
           </h2>
-          <span className="text-xs text-gray-400 font-bold uppercase mt-1">
+          <span className="text-xs text-gray-500 font-bold uppercase mt-1">
             Logged In Session: <span className="text-[#00A550] font-black underline">{adminRole} Mode</span>
           </span>
         </div>
@@ -82,7 +82,7 @@ export const AdminPanel: React.FC = () => {
             className={`flex-1 py-2.5 rounded-xl text-[10px] font-black uppercase transition-all cursor-pointer ${
               activeAdminTab === tab 
                 ? 'bg-[#00A550] text-[#000000]' 
-                : 'text-gray-400 hover:text-white hover:bg-neutral-900'
+                : 'text-gray-500 hover:text-white hover:bg-neutral-900'
             }`}
             id={`tab-admin-${tab}`}
           >
@@ -103,7 +103,7 @@ export const AdminPanel: React.FC = () => {
               
               {/* Card: Registered Workers */}
               <div className="bg-[#111111] border border-white/10 rounded-2xl p-5 text-left shadow-2xl">
-                <span className="text-[10px] text-gray-400 uppercase font-black">Registered Workers</span>
+                <span className="text-[10px] text-gray-500 uppercase font-black">Registered Workers</span>
                 <p className="text-2xl font-black text-white mt-1">{activeWorkers}</p>
                 <span className="text-[9px] text-[#00A550] uppercase mt-2 block font-bold">● Active in Hub</span>
               </div>
@@ -117,7 +117,7 @@ export const AdminPanel: React.FC = () => {
 
               {/* Card: Active ID Audited */}
               <div className="bg-[#111111] border border-white/10 rounded-2xl p-5 text-left shadow-2xl">
-                <span className="text-[10px] text-gray-400 uppercase font-black">Verified Credentials</span>
+                <span className="text-[10px] text-gray-500 uppercase font-black">Verified Credentials</span>
                 <p className="text-2xl font-black text-white mt-1">{verifiedWorkers}</p>
                 <span className="text-[9px] text-amber-500 uppercase mt-2 block font-bold">Pending: {workers.length - verifiedWorkers}</span>
               </div>
@@ -191,7 +191,7 @@ export const AdminPanel: React.FC = () => {
             <div className="overflow-x-auto" id="workers-admin-table-container">
               <table className="w-full text-xs uppercase" id="workers-admin-table">
                 <thead>
-                  <tr className="bg-black/40 border-b border-white/10 text-left text-gray-400">
+                  <tr className="bg-black/40 border-b border-white/10 text-left text-gray-500">
                     <th className="p-3 font-bold">Specialist</th>
                     <th className="p-3 font-bold">Trade Category</th>
                     <th className="p-3 font-bold">Location Group</th>
@@ -219,7 +219,7 @@ export const AdminPanel: React.FC = () => {
                       </td>
 
                       {/* Location details */}
-                      <td className="p-3 text-[10px] text-gray-400">
+                      <td className="p-3 text-[10px] text-gray-500">
                         {worker.location.district} › {worker.location.sector}
                       </td>
 
@@ -233,7 +233,7 @@ export const AdminPanel: React.FC = () => {
                         {worker.isPremium ? (
                           <span className="text-[8px] bg-black text-[#00A550] border border-[#00A550]/30 px-1 rounded-sm w-fit font-black">Featured Boost</span>
                         ) : (
-                          <span className="text-[8px] bg-neutral-900 text-gray-400 border border-white/5 px-1 rounded-sm w-fit font-bold">Regular</span>
+                          <span className="text-[8px] bg-neutral-900 text-gray-500 border border-white/5 px-1 rounded-sm w-fit font-bold">Regular</span>
                         )}
                       </td>
 
@@ -294,7 +294,7 @@ export const AdminPanel: React.FC = () => {
             </h3>
 
             {reports.length === 0 ? (
-              <p className="text-xs text-gray-400 py-10 uppercase italic text-center">
+              <p className="text-xs text-gray-500 py-10 uppercase italic text-center">
                 All clean! There are no open behavioral reports at this time.
               </p>
             ) : (
@@ -309,7 +309,7 @@ export const AdminPanel: React.FC = () => {
                   >
                     <div className="flex justify-between items-start flex-wrap gap-2 text-xs">
                       <div>
-                        <span className="text-[10px] text-gray-400 font-extrabold uppercase block">
+                        <span className="text-[10px] text-gray-500 font-extrabold uppercase block">
                           Report Category: Suspicion Report #{report.id}
                         </span>
                         <h4 className="text-xs font-black text-white uppercase mt-1">
@@ -324,7 +324,7 @@ export const AdminPanel: React.FC = () => {
                     </p>
 
                     <div className="flex justify-between items-center flex-wrap gap-3">
-                      <span className="text-[9px] text-gray-400">
+                      <span className="text-[9px] text-gray-500">
                         Filer: <span className="text-white font-extrabold font-sans uppercase">{report.reporterName}</span> (ID: {report.reporterId})
                       </span>
 
@@ -372,7 +372,7 @@ export const AdminPanel: React.FC = () => {
             <div className="overflow-x-auto" id="payments-admin-table-container">
               <table className="w-full text-xs uppercase" id="payments-admin-table">
                 <thead>
-                  <tr className="bg-black/40 border-b border-white/10 text-left text-gray-400">
+                  <tr className="bg-black/40 border-b border-white/10 text-left text-gray-500">
                     <th className="p-3 font-bold">Transaction Reference ID</th>
                     <th className="p-3 font-bold">Payer Account</th>
                     <th className="p-3 font-bold">Value (RWF)</th>
@@ -390,7 +390,7 @@ export const AdminPanel: React.FC = () => {
                       <td className="p-3">
                         <div className="flex flex-col">
                           <span className="font-black text-white">{tx.userName}</span>
-                          <span className="text-[9px] text-gray-400 font-bold">{tx.phoneNumber}</span>
+                          <span className="text-[9px] text-gray-500 font-bold">{tx.phoneNumber}</span>
                         </div>
                       </td>
                       <td className="p-3 font-black text-[#00A550]">
@@ -408,7 +408,7 @@ export const AdminPanel: React.FC = () => {
                       <td className="p-3 text-gray-500">
                         {tx.timestamp}
                       </td>
-                      <td className="p-3 text-[10px] lowercase italic font-bold text-gray-400">
+                      <td className="p-3 text-[10px] lowercase italic font-bold text-gray-500">
                         {tx.description}
                       </td>
                     </tr>
@@ -422,3 +422,4 @@ export const AdminPanel: React.FC = () => {
     </div>
   );
 };
+

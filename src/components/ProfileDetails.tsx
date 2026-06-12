@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { TRANSLATIONS } from '../data/mockData';
 import { PaymentDialogue } from './PaymentDialogue';
@@ -183,17 +183,17 @@ export const ProfileDetails: React.FC = () => {
                 <Star size={14} fill="currentColor" />
               </div>
               <span className="text-xs text-white font-extrabold">{workerObj.rating} / 5.0</span>
-              <span className="text-xs text-gray-400 font-bold uppercase">({workerObj.reviews.length} user reviews)</span>
+              <span className="text-xs text-gray-500 font-bold uppercase">({workerObj.reviews.length} user reviews)</span>
             </div>
 
             {/* Profile specifications */}
             <div className="grid grid-cols-2 gap-3 mt-4" id="worker-profile-specifications">
               <div className="bg-black p-2.5 rounded-xl border border-dashed border-white/10">
-                <span className="text-[9px] text-gray-400 uppercase font-black">Grade Range</span>
+                <span className="text-[9px] text-gray-500 uppercase font-black">Grade Range</span>
                 <p className="text-xs text-white uppercase font-black">{workerObj.experience} Level</p>
               </div>
               <div className="bg-black p-2.5 rounded-xl border border-dashed border-white/10">
-                <span className="text-[9px] text-gray-400 uppercase font-black">Activity Views</span>
+                <span className="text-[9px] text-gray-500 uppercase font-black">Activity Views</span>
                 <p className="text-xs text-white font-black">{workerObj.viewsCount} Queries</p>
               </div>
             </div>
@@ -202,11 +202,11 @@ export const ProfileDetails: React.FC = () => {
 
         {/* Location list */}
         <div className="border-t border-dashed border-white/10 mt-6 pt-5 flex flex-col gap-2 text-xs" id="profile-region-list">
-          <span className="text-[10px] text-gray-400 uppercase tracking-widest font-black">Registered Administrative Jurisdiction</span>
+          <span className="text-[10px] text-gray-500 uppercase tracking-widest font-black">Registered Administrative Jurisdiction</span>
           
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center uppercase" id="administrative-grid">
             <div className="bg-[#1a1a1a] border border-white/5 p-2 rounded-xl">
-              <span className="text-[8px] text-gray-400 font-black">Province</span>
+              <span className="text-[8px] text-gray-500 font-black">Province</span>
               <p className="text-[9px] text-white font-black line-clamp-1">{workerObj.location.province}</p>
             </div>
             <div className="bg-[#1a1a1a] border border-white/5 p-2 rounded-xl">
@@ -218,8 +218,8 @@ export const ProfileDetails: React.FC = () => {
               <p className="text-[9px] text-[#00A550] font-black line-clamp-1">{workerObj.location.sector}</p>
             </div>
             <div className="bg-[#00A550] text-[#000000] p-2 rounded-xl">
-              <span className="text-[8px] text-black font-black">Cell</span>
-              <p className="text-[9px] text-black font-black line-clamp-1">{workerObj.location.cell}</p>
+              <span className="text-[8px] text-white font-black">Cell</span>
+              <p className="text-[9px] text-white font-black line-clamp-1">{workerObj.location.cell}</p>
             </div>
           </div>
 
@@ -270,7 +270,7 @@ export const ProfileDetails: React.FC = () => {
                 <span className="text-xs uppercase text-amber-450 font-extrabold tracking-wide">
                   Contact Information Secured 🔒
                 </span>
-                <p className="text-[10px] text-gray-400 uppercase max-w-sm font-bold">
+                <p className="text-[10px] text-gray-500 uppercase max-w-sm font-bold">
                   {language === 'rw' 
                     ? 'Kugira ngo ushobore kureba nomero cyangwa WhatsApp y’Uyu mukozi, wishyure amafaranga 500 RWF via MTN/Airtel.' 
                     : 'To view this worker\'s phone and start messaging, pay a one-time fee of 500 RWF.'}
@@ -302,7 +302,7 @@ export const ProfileDetails: React.FC = () => {
           <button 
             type="button"
             onClick={handleBlockClick}
-            className="text-[10px] text-gray-400 hover:bg-[#111111] border border-white/10 px-3 py-1.5 rounded-lg font-black uppercase flex items-center gap-1.5 cursor-pointer"
+            className="text-[10px] text-gray-500 hover:bg-[#111111] border border-white/10 px-3 py-1.5 rounded-lg font-black uppercase flex items-center gap-1.5 cursor-pointer"
             id="btn-block-profile"
           >
             <Ban size={12} />
@@ -318,14 +318,14 @@ export const ProfileDetails: React.FC = () => {
             <h3 className="text-sm font-black uppercase text-red-450 mb-1 flex items-center gap-1.5">
               <AlertTriangle size={16} /> File Moderate Report
             </h3>
-            <p className="text-[10px] text-gray-400 uppercase font-black mb-4">
+            <p className="text-[10px] text-gray-500 uppercase font-black mb-4">
               Suspicion against worker: {workerObj.fullName}
             </p>
 
             {reportSubmitted ? (
-              <div className="py-6 text-center text-xs text-red-600 font-extrabold uppercase animate-pulse flex flex-col gap-2">
+              <div className="py-6 text-center text-xs text-green-400 font-extrabold uppercase animate-pulse flex flex-col gap-2">
                 <span>✅ Report Submitted!</span>
-                <span className="text-[9px] text-gray-400">Moderators will audit this profile within 2-4 business hours.</span>
+                <span className="text-[9px] text-gray-500">Moderators will audit this profile within 2-4 business hours.</span>
               </div>
             ) : (
               <form onSubmit={handleAddReport} className="flex flex-col gap-4" id="form-submit-report">
@@ -374,7 +374,7 @@ export const ProfileDetails: React.FC = () => {
         {/* List reviews */}
         <div className="flex flex-col gap-4" id="reviews-feed">
           {workerObj.reviews.length === 0 ? (
-            <p className="text-[10.5px] text-gray-400 uppercase italic py-4">
+            <p className="text-[10.5px] text-gray-500 uppercase italic py-4">
               No hiring assessments have been logged yet for this worker. Be the first to hire them and leave ratings!
             </p>
           ) : (
@@ -382,7 +382,7 @@ export const ProfileDetails: React.FC = () => {
               <div key={rev.id} className="border-b border-white/5 pb-3 flex flex-col gap-1.5 text-xs text-left" id={`review-item-${rev.id}`}>
                 <div className="flex justify-between items-center text-[10px]">
                   <span className="text-white font-black uppercase flex items-center gap-1.5 font-sans">
-                    <Building size={12} className="text-gray-400" />
+                    <Building size={12} className="text-gray-500" />
                     {rev.reviewerName}
                   </span>
                   <span className="text-gray-500 font-bold">{rev.date}</span>
@@ -393,7 +393,7 @@ export const ProfileDetails: React.FC = () => {
                       key={i} 
                       size={10} 
                       fill={i < Math.floor(rev.rating) ? 'currentColor' : 'none'} 
-                      className={i < Math.floor(rev.rating) ? 'text-[#FFCC00]' : 'text-gray-700'}
+                      className={i < Math.floor(rev.rating) ? 'text-[#FFCC00]' : 'text-green-400'}
                     />
                   ))}
                 </div>
@@ -407,7 +407,7 @@ export const ProfileDetails: React.FC = () => {
 
         {/* Post review block */}
         <div className="border-t border-dashed border-white/10 mt-6 pt-5" id="profile-form-reviews">
-          <span className="text-[10px] text-gray-400 uppercase tracking-widest font-black">
+          <span className="text-[10px] text-gray-500 uppercase tracking-widest font-black">
             {t.leaveReview}
           </span>
           
@@ -448,7 +448,7 @@ export const ProfileDetails: React.FC = () => {
 
               <button 
                 type="submit" 
-                className="bg-[#00a550] hover:bg-[#008f43] text-black p-3 rounded-xl text-[10px] uppercase font-black tracking-wide cursor-pointer text-center font-sans"
+                className="bg-[#00a550] hover:bg-[#008f43] text-white p-3 rounded-xl text-[10px] uppercase font-black tracking-wide cursor-pointer text-center font-sans"
                 id="btn-review-submit"
               >
                 Submit Feedback Review ⭐
@@ -460,3 +460,4 @@ export const ProfileDetails: React.FC = () => {
     </div>
   );
 };
+

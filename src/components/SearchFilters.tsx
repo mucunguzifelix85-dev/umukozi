@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { PROVINCES, DISTRICTS, getSectorsForDistrict, getCellsForSector } from '../data/locations';
 import { SKILL_CATEGORIES } from '../data/mockData';
@@ -182,7 +182,7 @@ export const SearchFilters: React.FC = () => {
 
             {/* Province drop */}
             <div className="flex flex-col gap-0.5" id="f-province-drop">
-              <label className="text-[9px] text-gray-400 uppercase font-black">Province</label>
+              <label className="text-[9px] text-gray-500 uppercase font-black">Province</label>
               <select 
                 value={selectedProvince}
                 onChange={(e) => setSelectedProvince(e.target.value)}
@@ -196,12 +196,12 @@ export const SearchFilters: React.FC = () => {
 
             {/* District drop */}
             <div className="flex flex-col gap-0.5" id="f-district-drop">
-              <label className="text-[9px] text-gray-400 uppercase font-black">District</label>
+              <label className="text-[9px] text-gray-500 uppercase font-black">District</label>
               <select 
                 value={selectedDistrict}
                 disabled={!selectedProvince}
                 onChange={(e) => setSelectedDistrict(e.target.value)}
-                className="w-full border border-white/15 p-2 rounded-xl text-xs bg-black text-white font-bold uppercase disabled:bg-[#151515] disabled:text-gray-600 cursor-pointer focus:border-[#00A550] outline-none"
+                className="w-full border border-white/15 p-2 rounded-xl text-xs bg-black text-white font-bold uppercase disabled:bg-[#151515] disabled:text-gray-300 cursor-pointer focus:border-[#00A550] outline-none"
                 id="filter-district"
               >
                 <option value="">-- All Districts --</option>
@@ -211,12 +211,12 @@ export const SearchFilters: React.FC = () => {
 
             {/* Sector drop */}
             <div className="flex flex-col gap-0.5" id="f-sector-drop">
-              <label className="text-[9px] text-gray-400 uppercase font-black">Sector</label>
+              <label className="text-[9px] text-gray-500 uppercase font-black">Sector</label>
               <select 
                 value={selectedSector}
                 disabled={!selectedDistrict}
                 onChange={(e) => setSelectedSector(e.target.value)}
-                className="w-full border border-white/15 p-2 rounded-xl text-xs bg-black text-white font-bold uppercase disabled:bg-[#151515] disabled:text-gray-600 cursor-pointer focus:border-[#00A550] outline-none"
+                className="w-full border border-white/15 p-2 rounded-xl text-xs bg-black text-white font-bold uppercase disabled:bg-[#151515] disabled:text-gray-300 cursor-pointer focus:border-[#00A550] outline-none"
                 id="filter-sector"
               >
                 <option value="">-- All Sectors --</option>
@@ -226,12 +226,12 @@ export const SearchFilters: React.FC = () => {
 
             {/* Cell drop */}
             <div className="flex flex-col gap-0.5" id="f-cell-drop">
-              <label className="text-[9px] text-gray-400 uppercase font-black">Cell</label>
+              <label className="text-[9px] text-gray-500 uppercase font-black">Cell</label>
               <select 
                 value={selectedCell}
                 disabled={!selectedSector}
                 onChange={(e) => setSelectedCell(e.target.value)}
-                className="w-full border border-white/15 p-2 rounded-xl text-xs bg-black text-white font-bold uppercase disabled:bg-[#151515] disabled:text-gray-600 cursor-pointer focus:border-[#00A550] outline-none"
+                className="w-full border border-white/15 p-2 rounded-xl text-xs bg-black text-white font-bold uppercase disabled:bg-[#151515] disabled:text-gray-300 cursor-pointer focus:border-[#00A550] outline-none"
                 id="filter-cell"
               >
                 <option value="">-- All Cells --</option>
@@ -253,7 +253,7 @@ export const SearchFilters: React.FC = () => {
               <span className="text-[10px] uppercase text-emerald-400 font-bold flex items-center gap-1">
                 <Sparkles size={11} className="text-[#00A550]" /> Boosted Only
               </span>
-              <span className="text-[8px] text-gray-400 uppercase">Featured workers of the month</span>
+              <span className="text-[8px] text-gray-500 uppercase">Featured workers of the month</span>
             </div>
           </label>
         </div>
@@ -265,7 +265,7 @@ export const SearchFilters: React.FC = () => {
         {/* Search header & Mobile filter trigger */}
         <div className="flex flex-col sm:flex-row gap-3" id="results-search-row">
           <div className="relative flex-1">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
             <input 
               type="text" 
               placeholder={language === 'rw' ? 'Shaka umukozi mu mazina...' : 'Query worker by full name or keyword...'}
@@ -289,7 +289,7 @@ export const SearchFilters: React.FC = () => {
 
         {/* Counter label */}
         <div className="flex justify-between items-center" id="results-counter-row">
-          <span className="text-[11px] uppercase tracking-wide text-gray-400">
+          <span className="text-[11px] uppercase tracking-wide text-gray-500">
             Registered matches: <span className="text-white font-black underline">{filteredWorkers.length} found</span>
           </span>
           <span className="text-[10px] text-emerald-400 bg-[#00A550]/10 border border-[#00A550]/20 rounded px-2.5 py-0.5 uppercase">
@@ -302,7 +302,7 @@ export const SearchFilters: React.FC = () => {
           <div className="py-20 bg-[#111111] border border-dashed border-white/15 rounded-2xl text-center px-6" id="no-results-alert">
             <SlidersHorizontal className="text-[#00A550] w-12 h-12 mx-auto mb-4 animate-pulse" />
             <h3 className="text-sm font-black uppercase text-white">No matching candidates</h3>
-            <p className="text-xs text-gray-400 mt-1 max-w-xs mx-auto uppercase leading-relaxed font-sans">
+            <p className="text-xs text-gray-500 mt-1 max-w-xs mx-auto uppercase leading-relaxed font-sans">
               Try clarifying your location coordinates, clearing active filters, or typing an alternative skill search term.
             </p>
           </div>
@@ -358,7 +358,7 @@ export const SearchFilters: React.FC = () => {
                         <Star size={11} fill="currentColor" />
                       </div>
                       <span className="text-[10px] text-white font-extrabold">{worker.rating}</span>
-                      <span className="text-[9px] text-gray-400 capitalize">
+                      <span className="text-[9px] text-gray-500 capitalize">
                         ({worker.reviews.length} feedback)
                       </span>
                     </div>
@@ -373,7 +373,7 @@ export const SearchFilters: React.FC = () => {
                       {worker.location.district} › {worker.location.sector} › <span className="text-[#00A550] font-black">{worker.location.cell}</span>
                     </span>
                   </div>
-                  <div className="flex justify-between items-center text-[9px] text-gray-400 mt-2">
+                  <div className="flex justify-between items-center text-[9px] text-gray-500 mt-2">
                     <span className="bg-black border border-white/10 text-gray-300 px-2 py-0.5 rounded uppercase font-black">
                       Grade: {worker.experience}
                     </span>
@@ -390,3 +390,4 @@ export const SearchFilters: React.FC = () => {
     </div>
   );
 };
+
