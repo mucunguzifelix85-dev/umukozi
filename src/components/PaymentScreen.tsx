@@ -78,10 +78,11 @@ export const PaymentScreen: React.FC = () => {
           </button>
           <button type="button" onClick={() => setScreen("register-employer")}
             className="w-full text-center text-gray-400 hover:text-gray-600 font-bold text-sm py-2">
-            <- {t.back}
+            &larr; Back
           </button>
         </form>
       </div>
     </div>
   );
 };
+
