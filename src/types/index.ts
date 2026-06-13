@@ -18,6 +18,7 @@ export interface WorkerProfile {
   summary?: string;
   workTypes?: string;
   availableAreas?: string;
+  photoUrl?: string;
   registeredAt: string;
 }
 
@@ -40,14 +41,7 @@ export interface JobPosting {
   duration: string;
   district: string;
   sector: string;
+  neighborhood: string;
+  photoUrl?: string;
   postedAt: string;
-}
-
-export interface AppState {
-  language: Language;
-  screen: string;
-  workers: WorkerProfile[];
-  employer: EmployerProfile | null;
-  hasPaid: boolean;
-  jobs: JobPosting[];
 }
