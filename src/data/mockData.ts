@@ -55,7 +55,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     villageLabel: "Umudugudu",
     locationStep: "Aho Utuye",
     continueBtn: "Komeza",
-    locationDesc: "Tanga aho utuye kugirango abakoresha bakubonere byoroshye"
+    locationDesc: "Tanga aho utuye kugirango abakoresha bakubonere byoroshye",
     chooseLanguage: "Hitamo Ururimi",
     iAmLookingForWork: "Nshaka Akazi",
     iNeedWorker: "Nshaka Umukozi",
@@ -104,7 +104,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     villageLabel: "Village",
     locationStep: "Your Location",
     continueBtn: "Continue",
-    locationDesc: "Enter your location so employers can find you easily"
+    locationDesc: "Enter your location so employers can find you easily",
     chooseLanguage: "Choose Language",
     iAmLookingForWork: "I Am Looking for Work",
     iNeedWorker: "I Need a Worker",
@@ -153,7 +153,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     villageLabel: "Village",
     locationStep: "Votre Localisation",
     continueBtn: "Continuer",
-    locationDesc: "Entrez votre localisation pour que les employeurs vous trouvent facilement"
+    locationDesc: "Entrez votre localisation pour que les employeurs vous trouvent facilement",
     chooseLanguage: "Choisir la Langue",
     iAmLookingForWork: "Je Cherche du Travail",
     iNeedWorker: "Je Cherche un Employé",
@@ -202,7 +202,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     villageLabel: "Kijiji",
     locationStep: "Mahali Unapoishi",
     continueBtn: "Endelea",
-    locationDesc: "Ingiza mahali unapoishi ili waajiri wakupate kwa urahisi"
+    locationDesc: "Ingiza mahali unapoishi ili waajiri wakupate kwa urahisi",
     chooseLanguage: "Chagua Lugha",
     iAmLookingForWork: "Natafuta Kazi",
     iNeedWorker: "Nahitaji Mfanyakazi",
@@ -244,5 +244,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     selectSector: "Chagua Sekta",
   }
 };
+
+
 
 
