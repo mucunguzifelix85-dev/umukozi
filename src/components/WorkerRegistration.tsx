@@ -31,11 +31,11 @@ export const WorkerRegistration: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName || !phone || !province || !district || !sector || !neighborhood) {
-      setError("Please fill all required fields.");
+      setError(t.fillAllFields);
       return;
     }
     if (skills.length === 0) {
-      setError("Please select at least one job category.");
+      setError(t.selectOneCategory);
       return;
     }
     const worker: WorkerProfile = {
@@ -52,169 +52,151 @@ export const WorkerRegistration: React.FC = () => {
     };
     addWorker(worker);
     setScreen("role");
-    alert("Registration successful! You are now listed as a job seeker.");
+    alert(t.registrationSuccess);
+  };
+
+  const inputStyle = {
+    width:"100%",
+    border:"1.5px solid #1877F2",
+    borderRadius:"12px",
+    padding:"12px",
+    marginTop:"4px",
+    fontWeight:"bold",
+    background:"#f0f2f5",
+    color:"#050505",
+    outline:"none"
+  };
+
+  const sectionStyle = {
+    background:"#f0f2f5",
+    border:"1.5px solid #e4e6eb",
+    borderRadius:"18px",
+    padding:"16px",
+    display:"flex",
+    flexDirection:"column" as const,
+    gap:"12px"
   };
 
   return (
-    <div className="min-h-screen bg-black py-8 px-4">
-      <div className="max-w-lg mx-auto bg-zinc-900 rounded-3xl shadow-xl p-6 border border-green-900">
-
+    <div className="min-h-screen py-8 px-4" style={{background:"#1877F2"}}>
+      <div className="max-w-lg mx-auto p-6" style={{background:"#fff",borderRadius:"24px",boxShadow:"0 4px 32px #1877F255"}}>
         <div className="text-center mb-6">
           <div className="flex justify-center mb-2">
             <UmukoziLogo size={56} />
           </div>
-          <h1 className="text-2xl font-black text-green-400">UMUKOZI</h1>
-          <p className="text-gray-400 font-bold mt-1">{t.registerWorker}</p>
-          <div className="mt-2 bg-zinc-900 border border-green-800 rounded-xl p-2 text-green-300 text-xs font-bold">
-            Registration is FREE
+          <h1 className="text-2xl font-black" style={{color:"#1877F2"}}>UMUKOZI</h1>
+          <p className="font-bold mt-1" style={{color:"#606770"}}>{t.registerWorker}</p>
+          <div className="mt-2 rounded-xl p-2 text-xs font-bold" style={{background:"#e7f3ff",color:"#1877F2",border:"1px solid #1877F2"}}>
+            {t.registrationFree}
           </div>
         </div>
 
         {error && (
-          <div className="bg-zinc-900 border border-green-600 text-green-300 p-3 rounded-xl mb-4 font-bold text-sm">
+          <div className="p-3 rounded-xl mb-4 font-bold text-sm" style={{background:"#ffebe8",color:"#d32f2f",border:"1px solid #f5c6cb"}}>
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-
-          {/* PERSONAL INFO */}
-          <div className="bg-black border border-green-900 rounded-2xl p-4 flex flex-col gap-3">
-            <p className="text-xs font-black text-green-400 uppercase">Personal Information</p>
-
+          <div style={sectionStyle}>
+            <p className="text-xs font-black uppercase" style={{color:"#1877F2"}}>{t.personalInfo}</p>
             <div>
-              <label className="text-xs font-black text-gray-400 uppercase">{t.fullName} *</label>
+              <label className="text-xs font-black uppercase" style={{color:"#606770"}}>{t.fullName} *</label>
               <input value={fullName} onChange={e => setFullName(e.target.value)}
-                className="w-full border-2 border-green-800 rounded-xl p-3 mt-1 font-bold bg-black text-white focus:border-green-400 outline-none"
-                placeholder="e.g. Jean Bosco Nsengiyumva" />
+                style={inputStyle} placeholder={t.workerPlaceholderName} />
             </div>
-
             <div>
-              <label className="text-xs font-black text-gray-400 uppercase">{t.phone} *</label>
+              <label className="text-xs font-black uppercase" style={{color:"#606770"}}>{t.phone} *</label>
               <input value={phone} onChange={e => setPhone(e.target.value)}
-                className="w-full border-2 border-green-800 rounded-xl p-3 mt-1 font-bold bg-black text-white focus:border-green-400 outline-none"
-                placeholder="+250 788 000 000" />
+                style={inputStyle} placeholder={t.workerPlaceholderPhone} />
             </div>
           </div>
 
-          {/* ADDRESS */}
-          <div className="bg-black border border-green-900 rounded-2xl p-4 flex flex-col gap-3">
-            <p className="text-xs font-black text-green-400 uppercase">Address Information</p>
-
+          <div style={sectionStyle}>
+            <p className="text-xs font-black uppercase" style={{color:"#1877F2"}}>{t.addressInfo}</p>
             <div>
-              <label className="text-xs font-black text-gray-400 uppercase">{t.province} *</label>
+              <label className="text-xs font-black uppercase" style={{color:"#606770"}}>{t.province} *</label>
               <select value={province} onChange={e => { setProvince(e.target.value); setDistrict(""); }}
-                className="w-full border-2 border-green-800 rounded-xl p-3 mt-1 font-bold bg-black text-white focus:border-green-400 outline-none">
-                <option value="">Select Province</option>
+                style={inputStyle}>
+                <option value="">{t.selectProvince}</option>
                 {PROVINCES.map(p => <option key={p} value={p}>{p}</option>)}
               </select>
             </div>
-
             <div>
-              <label className="text-xs font-black text-gray-400 uppercase">{t.district} *</label>
+              <label className="text-xs font-black uppercase" style={{color:"#606770"}}>{t.district} *</label>
               <select value={district} onChange={e => setDistrict(e.target.value)}
-                disabled={!province}
-                className="w-full border-2 border-green-800 rounded-xl p-3 mt-1 font-bold bg-black text-white focus:border-green-400 outline-none disabled:opacity-40">
-                <option value="">Select District</option>
+                disabled={!province} style={{...inputStyle, opacity: !province ? 0.4 : 1}}>
+                <option value="">{t.selectDistrict}</option>
                 {districts.map(d => <option key={d} value={d}>{d}</option>)}
               </select>
             </div>
-
             <div>
-              <label className="text-xs font-black text-gray-400 uppercase">Sector * (Type manually)</label>
+              <label className="text-xs font-black uppercase" style={{color:"#606770"}}>{t.sectorManual} *</label>
               <input value={sector} onChange={e => setSector(e.target.value)}
-                className="w-full border-2 border-green-800 rounded-xl p-3 mt-1 font-bold bg-black text-white focus:border-green-400 outline-none"
-                placeholder="e.g. Kimironko" />
+                style={inputStyle} placeholder={t.workerPlaceholderSector} />
             </div>
-
             <div>
-              <label className="text-xs font-black text-gray-400 uppercase">Neighborhood / Area *</label>
+              <label className="text-xs font-black uppercase" style={{color:"#606770"}}>{t.neighborhoodManual} *</label>
               <input value={neighborhood} onChange={e => setNeighborhood(e.target.value)}
-                className="w-full border-2 border-green-800 rounded-xl p-3 mt-1 font-bold bg-black text-white focus:border-green-400 outline-none"
-                placeholder="e.g. Near the market, Kibagabaga" />
+                style={inputStyle} placeholder={t.workerPlaceholderNeighborhood} />
             </div>
           </div>
 
-          {/* WORK EXPERIENCE */}
-          <div className="bg-black border border-green-900 rounded-2xl p-4 flex flex-col gap-3">
-            <p className="text-xs font-black text-green-400 uppercase">Work Experience</p>
-
+          <div style={sectionStyle}>
+            <p className="text-xs font-black uppercase" style={{color:"#1877F2"}}>{t.workExperience}</p>
             <div>
-              <label className="text-xs font-black text-gray-400 uppercase">Work you normally do</label>
+              <label className="text-xs font-black uppercase" style={{color:"#606770"}}>{t.workYouDo}</label>
               <textarea value={workExperience} onChange={e => setWorkExperience(e.target.value)}
-                rows={3}
-                className="w-full border-2 border-green-800 rounded-xl p-3 mt-1 font-bold bg-black text-white focus:border-green-400 outline-none resize-none"
-                placeholder="e.g. I have been cooking in hotels and homes for 5 years. I specialise in Rwandan and Continental dishes..." />
+                rows={3} style={{...inputStyle,resize:"none"}} placeholder={t.workerPlaceholderExperience} />
             </div>
-
             <div>
-              <label className="text-xs font-black text-gray-400 uppercase mb-2 block">
-                Jobs you are capable of doing * (Select all that apply)
-              </label>
-              <div className="flex flex-wrap gap-2 max-h-52 overflow-y-auto pr-1">
+              <label className="text-xs font-black uppercase mb-2 block" style={{color:"#606770"}}>{t.jobsCapable} *</label>
+              <div className="flex flex-wrap gap-2 pr-1" style={{maxHeight:"200px",overflowY:"auto"}}>
                 {JOB_TYPES.map(job => (
-                  <button type="button" key={job}
-                    onClick={() => toggleSkill(job)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-bold border-2 transition-all ${
-                      skills.includes(job)
-                        ? "bg-green-600 text-black border-green-600"
-                        : "bg-black text-gray-300 border-green-800 hover:border-green-500"
-                    }`}>
+                  <button type="button" key={job} onClick={() => toggleSkill(job)}
+                    className="px-3 py-1.5 rounded-full text-xs font-bold transition-all"
+                    style={skills.includes(job)
+                      ? {background:"#1877F2",color:"#fff",border:"2px solid #1877F2"}
+                      : {background:"#f0f2f5",color:"#050505",border:"2px solid #e4e6eb"}}>
                     {job}
                   </button>
                 ))}
               </div>
               {skills.length > 0 && (
-                <p className="text-xs text-green-400 font-bold mt-2">{skills.length} selected</p>
+                <p className="text-xs font-bold mt-2" style={{color:"#1877F2"}}>{skills.length} {t.selected}</p>
               )}
             </div>
           </div>
 
-          {/* PROFESSIONAL SUMMARY */}
-          <div className="bg-black border border-green-900 rounded-2xl p-4 flex flex-col gap-4">
-            <p className="text-xs font-black text-green-400 uppercase">Professional Summary</p>
-
+          <div style={sectionStyle}>
+            <p className="text-xs font-black uppercase" style={{color:"#1877F2"}}>{t.professionalSummary}</p>
             <div>
-              <label className="text-xs font-black text-gray-400 uppercase">
-                Brief summary of your skills and what you can do
-              </label>
+              <label className="text-xs font-black uppercase" style={{color:"#606770"}}>{t.summaryLabel}</label>
               <textarea value={summary} onChange={e => setSummary(e.target.value)}
-                rows={3}
-                className="w-full border-2 border-green-800 rounded-xl p-3 mt-1 font-bold bg-black text-white focus:border-green-400 outline-none resize-none"
-                placeholder="e.g. I am a hardworking and experienced cook with 5 years of experience. I am reliable, punctual, and take pride in my work..." />
+                rows={3} style={{...inputStyle,resize:"none"}} placeholder={t.workerPlaceholderSummary} />
             </div>
-
             <div>
-              <label className="text-xs font-black text-gray-400 uppercase">
-                Types of work you are capable of performing
-              </label>
+              <label className="text-xs font-black uppercase" style={{color:"#606770"}}>{t.workTypesLabel}</label>
               <textarea value={workTypes} onChange={e => setWorkTypes(e.target.value)}
-                rows={2}
-                className="w-full border-2 border-green-800 rounded-xl p-3 mt-1 font-bold bg-black text-white focus:border-green-400 outline-none resize-none"
-                placeholder="e.g. Cooking, cleaning, catering for events, preparing Rwandan traditional food..." />
+                rows={2} style={{...inputStyle,resize:"none"}} placeholder={t.workerPlaceholderWorkTypes} />
             </div>
-
             <div>
-              <label className="text-xs font-black text-gray-400 uppercase">
-                Locations and areas where you are available to work
-              </label>
+              <label className="text-xs font-black uppercase" style={{color:"#606770"}}>{t.availableAreasLabel}</label>
               <textarea value={availableAreas} onChange={e => setAvailableAreas(e.target.value)}
-                rows={2}
-                className="w-full border-2 border-green-800 rounded-xl p-3 mt-1 font-bold bg-black text-white focus:border-green-400 outline-none resize-none"
-                placeholder="e.g. I am available in Gasabo, Kicukiro, and Nyarugenge. I can travel within Kigali..." />
+                rows={2} style={{...inputStyle,resize:"none"}} placeholder={t.workerPlaceholderAreas} />
             </div>
           </div>
 
           <button type="submit"
-            className="w-full bg-green-600 hover:bg-green-700 text-black p-4 rounded-2xl font-black text-lg transition-all shadow-lg">
-            {t.submit || "Submit Registration"} ✅
+            className="w-full p-4 rounded-2xl font-black text-lg transition-all shadow-lg hover:opacity-90"
+            style={{background:"#1877F2",color:"#fff",border:"none"}}>
+            {t.submit}
           </button>
-
           <button type="button" onClick={() => setScreen("role")}
-            className="w-full text-center text-gray-500 hover:text-gray-300 font-bold text-sm py-2">
-            Back
+            className="w-full text-center font-bold text-sm py-2"
+            style={{color:"#606770"}}>
+            ← {t.back}
           </button>
-
         </form>
       </div>
     </div>
