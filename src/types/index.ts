@@ -13,11 +13,11 @@ export interface WorkerProfile {
   fullName: string;
   phoneNumber: string;
   location: Location;
-  skills: string[];
+  skillsText: string;      // typed by worker, e.g. "Cleaning, cooking, childcare"
+  lookingFor: string;      // typed by worker, e.g. "House cleaning job, full time"
+  skills: string[];        // kept for search compatibility
   experiencedIn: string[];
   summary?: string;
-  workTypes?: string;
-  availableAreas?: string;
   photoUrl?: string;
   registeredAt: string;
 }

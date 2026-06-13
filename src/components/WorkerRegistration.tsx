@@ -1,94 +1,90 @@
 ﻿import React, { useState, useRef } from "react";
 import { useApp } from "../context/AppContext";
-import { TRANSLATIONS, JOB_TYPES } from "../data/mockData";
 import { WorkerProfile } from "../types";
 import { UmukoziLogo } from "./UmukoziLogo";
 
 export const WorkerRegistration: React.FC = () => {
-  const { language, setScreen, addWorker, workerLocation } = useApp();
-  const t = TRANSLATIONS[language];
+  const { setScreen, addWorker, workerLocation } = useApp();
   const photoRef = useRef<HTMLInputElement>(null);
 
-  const [fullName, setFullName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [skills, setSkills] = useState<string[]>([]);
-  const [workExperience, setWorkExperience] = useState("");
-  const [summary, setSummary] = useState("");
-  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const [fullName,    setFullName]    = useState("");
+  const [phone,       setPhone]       = useState("");
+  const [skillsText,  setSkillsText]  = useState("");
+  const [lookingFor,  setLookingFor]  = useState("");
+  const [photoPreview,setPhotoPreview]= useState<string | null>(null);
   const [photoBase64, setPhotoBase64] = useState<string | null>(null);
-  const [error, setError] = useState("");
-
-  const toggleSkill = (job: string) => {
-    setSkills(prev => prev.includes(job) ? prev.filter(j => j !== job) : [...prev, job]);
-  };
+  const [error,       setError]       = useState("");
 
   const handlePhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = (ev) => {
-      const result = ev.target?.result as string;
-      setPhotoPreview(result);
-      setPhotoBase64(result);
+    reader.onload = ev => {
+      const r = ev.target?.result as string;
+      setPhotoPreview(r);
+      setPhotoBase64(r);
     };
     reader.readAsDataURL(file);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!fullName || !phone) { setError(t.fillAllFields); return; }
-    if (skills.length === 0) { setError(t.selectOneCategory); return; }
+    if (!fullName.trim())    { setError("Please enter your full name"); return; }
+    if (!phone.trim())       { setError("Please enter your phone number"); return; }
+    if (!skillsText.trim())  { setError("Please describe your skills"); return; }
+    if (!lookingFor.trim())  { setError("Please describe the job you are looking for"); return; }
 
     const worker: WorkerProfile = {
       id: "W" + Date.now(),
-      fullName,
-      phoneNumber: phone,
+      fullName:    fullName.trim(),
+      phoneNumber: phone.trim(),
       location: {
-        province: "",
-        district: workerLocation?.district || "",
-        sector: workerLocation?.sector || "",
-        neighborhood: workerLocation?.village || ""
+        province:     "",
+        district:     workerLocation?.district || "",
+        sector:       workerLocation?.sector   || "",
+        neighborhood: workerLocation?.village  || "",
       },
-      skills,
-      experiencedIn: workExperience ? [workExperience] : [],
-      summary,
-      photoUrl: photoBase64 || undefined,
-      registeredAt: new Date().toISOString()
+      skillsText:   skillsText.trim(),
+      lookingFor:   lookingFor.trim(),
+      skills:       skillsText.split(",").map(s => s.trim()).filter(Boolean),
+      experiencedIn:[],
+      photoUrl:     photoBase64 || undefined,
+      registeredAt: new Date().toISOString(),
     };
     addWorker(worker);
-    alert(t.registrationSuccess || "Profile created! Employers in your area can now find you.");
+    alert("Profile created! Employers in your area can now find you.");
     setScreen("job-feed");
   };
 
   const inputStyle: React.CSSProperties = {
     width: "100%", border: "1.5px solid #1877F2", borderRadius: "12px",
-    padding: "12px", marginTop: "4px", fontWeight: "bold",
-    background: "#f0f2f5", color: "#050505", outline: "none"
+    padding: "13px", marginTop: "5px", fontWeight: "bold",
+    background: "#f0f2f5", color: "#050505", outline: "none", fontSize: "15px",
   };
 
   const sectionStyle: React.CSSProperties = {
     background: "#f0f2f5", border: "1.5px solid #e4e6eb", borderRadius: "18px",
-    padding: "16px", display: "flex", flexDirection: "column", gap: "12px"
+    padding: "18px", display: "flex", flexDirection: "column", gap: "14px",
   };
 
   return (
     <div className="min-h-screen py-8 px-4" style={{ background: "#1877F2" }}>
-      <div className="max-w-lg mx-auto p-6" style={{ background: "#fff", borderRadius: "24px", boxShadow: "0 4px 32px #1877F255" }}>
+      <div className="max-w-lg mx-auto p-6"
+        style={{ background: "#fff", borderRadius: "24px", boxShadow: "0 4px 32px #1877F255" }}>
+
         <div className="text-center mb-6">
           <div className="flex justify-center mb-2"><UmukoziLogo size={48} /></div>
           <h1 className="text-2xl font-black" style={{ color: "#1877F2" }}>UMUKOZI</h1>
-          <p className="font-bold mt-1" style={{ color: "#606770" }}>
-            {t.registerWorker || "Create Worker Profile"}
-          </p>
+          <p className="font-bold mt-1 text-sm" style={{ color: "#606770" }}>Create Worker Profile</p>
           <div className="mt-2 rounded-xl p-2 text-xs font-bold"
             style={{ background: "#e7f3ff", color: "#1877F2", border: "1px solid #1877F2" }}>
-            ✅ 100% FREE for workers
+            ✅ 100% FREE — Employers in your area will see you
           </div>
         </div>
 
-        {/* Location tag */}
+        {/* Location */}
         {workerLocation && (
-          <div className="rounded-xl p-3 mb-4 flex items-center gap-2"
+          <div className="rounded-xl p-3 mb-5 flex items-center gap-2"
             style={{ background: "#e7f3ff", border: "1.5px solid #1877F2" }}>
             <span className="text-lg">📍</span>
             <div className="flex-1">
@@ -108,28 +104,27 @@ export const WorkerRegistration: React.FC = () => {
         {error && (
           <div className="p-3 rounded-xl mb-4 font-bold text-sm"
             style={{ background: "#ffebe8", color: "#d32f2f", border: "1px solid #f5c6cb" }}>
-            {error}
+            ⚠️ {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
 
-          {/* Personal info */}
+          {/* Personal info + photo */}
           <div style={sectionStyle}>
-            <p className="text-xs font-black uppercase" style={{ color: "#1877F2" }}>
-              {t.personalInfo || "Personal Info"}
-            </p>
+            <p className="text-xs font-black uppercase" style={{ color: "#1877F2" }}>Your Info</p>
 
-            {/* Photo */}
-            <div className="flex items-center gap-4">
+            {/* Photo row */}
+            <div className="flex items-start gap-4">
               <div className="shrink-0">
                 {photoPreview ? (
                   <div className="relative">
                     <img src={photoPreview} alt="Profile"
                       className="w-20 h-20 rounded-full object-cover"
                       style={{ border: "3px solid #1877F2" }} />
-                    <button type="button" onClick={() => { setPhotoPreview(null); setPhotoBase64(null); }}
-                      className="absolute -top-1 -right-1 rounded-full w-6 h-6 font-black text-xs flex items-center justify-center"
+                    <button type="button"
+                      onClick={() => { setPhotoPreview(null); setPhotoBase64(null); }}
+                      className="absolute -top-1 -right-1 w-6 h-6 rounded-full font-black text-xs flex items-center justify-center"
                       style={{ background: "#d32f2f", color: "#fff", border: "none" }}>
                       ✕
                     </button>
@@ -139,91 +134,72 @@ export const WorkerRegistration: React.FC = () => {
                     className="w-20 h-20 rounded-full flex flex-col items-center justify-center"
                     style={{ background: "#e7f3ff", border: "2px dashed #1877F2" }}>
                     <span className="text-2xl">📷</span>
-                    <span className="text-[9px] font-black" style={{ color: "#1877F2" }}>Photo</span>
+                    <span className="text-[9px] font-black" style={{ color: "#1877F2" }}>optional</span>
                   </button>
                 )}
-                <input ref={photoRef} type="file" accept="image/*" onChange={handlePhoto}
-                  style={{ display: "none" }} />
+                <input ref={photoRef} type="file" accept="image/*"
+                  onChange={handlePhoto} style={{ display: "none" }} />
               </div>
-              <div className="flex-1 flex flex-col gap-2">
+
+              <div className="flex-1 flex flex-col gap-3">
                 <div>
-                  <label className="text-xs font-black uppercase" style={{ color: "#606770" }}>
-                    {t.fullName || "Full Name"} *
-                  </label>
+                  <label className="text-xs font-black uppercase" style={{ color: "#606770" }}>Full Name *</label>
                   <input value={fullName} onChange={e => setFullName(e.target.value)}
                     style={inputStyle} placeholder="Your full name" />
                 </div>
                 <div>
-                  <label className="text-xs font-black uppercase" style={{ color: "#606770" }}>
-                    {t.phone || "Phone"} *
-                  </label>
+                  <label className="text-xs font-black uppercase" style={{ color: "#606770" }}>Phone Number *</label>
                   <input value={phone} onChange={e => setPhone(e.target.value)}
                     style={inputStyle} placeholder="07XXXXXXXX" type="tel" />
+                  <p className="text-[10px] font-bold mt-1" style={{ color: "#606770" }}>
+                    Employers will call or WhatsApp this number
+                  </p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Skills */}
+          {/* Skills — typed, not chips */}
           <div style={sectionStyle}>
-            <p className="text-xs font-black uppercase" style={{ color: "#1877F2" }}>
-              {t.workExperience || "Your Skills"} *
-            </p>
+            <p className="text-xs font-black uppercase" style={{ color: "#1877F2" }}>Your Skills *</p>
             <div>
               <label className="text-xs font-black uppercase" style={{ color: "#606770" }}>
-                {t.jobsCapable || "Select skills"} *
+                What can you do? (write it in your own words)
               </label>
-              <div className="flex flex-wrap gap-2 mt-2 pr-1" style={{ maxHeight: "200px", overflowY: "auto" }}>
-                {JOB_TYPES.map(job => (
-                  <button type="button" key={job} onClick={() => toggleSkill(job)}
-                    className="px-3 py-1.5 rounded-full text-xs font-bold transition-all"
-                    style={skills.includes(job)
-                      ? { background: "#1877F2", color: "#fff", border: "2px solid #1877F2" }
-                      : { background: "#fff", color: "#050505", border: "2px solid #e4e6eb" }}>
-                    {job}
-                  </button>
-                ))}
-              </div>
-              {skills.length > 0 && (
-                <p className="text-xs font-bold mt-2" style={{ color: "#1877F2" }}>
-                  {skills.length} skill(s) selected ✅
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="text-xs font-black uppercase" style={{ color: "#606770" }}>
-                {t.workYouDo || "Describe your experience"}
-              </label>
-              <textarea value={workExperience} onChange={e => setWorkExperience(e.target.value)}
+              <textarea value={skillsText} onChange={e => setSkillsText(e.target.value)}
                 rows={3} style={{ ...inputStyle, resize: "none" }}
-                placeholder="e.g. 3 years cleaning houses, experienced with children..." />
+                placeholder="e.g. House cleaning, cooking, taking care of children, gardening..." />
+              <p className="text-[10px] font-bold mt-1" style={{ color: "#1877F2" }}>
+                Write all your skills — employers search by keyword
+              </p>
             </div>
           </div>
 
-          {/* Summary */}
+          {/* What they are looking for — typed */}
           <div style={sectionStyle}>
-            <p className="text-xs font-black uppercase" style={{ color: "#1877F2" }}>
-              {t.professionalSummary || "About You"}
-            </p>
+            <p className="text-xs font-black uppercase" style={{ color: "#1877F2" }}>What Job Are You Looking For? *</p>
             <div>
               <label className="text-xs font-black uppercase" style={{ color: "#606770" }}>
-                Short description (optional)
+                Describe the job you want (in a few words)
               </label>
-              <textarea value={summary} onChange={e => setSummary(e.target.value)}
+              <textarea value={lookingFor} onChange={e => setLookingFor(e.target.value)}
                 rows={3} style={{ ...inputStyle, resize: "none" }}
-                placeholder="Tell employers why they should hire you..." />
+                placeholder="e.g. I am looking for a full-time house cleaning job near Kimironko. Available every day." />
+              <p className="text-[10px] font-bold mt-1" style={{ color: "#606770" }}>
+                💰 Salary is negotiated directly by phone call
+              </p>
             </div>
           </div>
 
           <button type="submit"
             className="w-full p-4 rounded-2xl font-black text-lg hover:opacity-90"
             style={{ background: "#1877F2", color: "#fff", border: "none" }}>
-            ✅ {t.submit || "Create My Profile"} — FREE
+            ✅ Create My Profile — FREE
           </button>
           <button type="button" onClick={() => setScreen("job-feed")}
-            className="w-full text-center font-bold text-sm py-2"
+            className="w-full text-center font-bold text-sm py-1"
             style={{ color: "#606770", background: "none", border: "none" }}>
-            ← {t.back || "Back to Jobs"}
+            ← Back to Jobs
           </button>
         </form>
       </div>
