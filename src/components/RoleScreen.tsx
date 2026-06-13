@@ -19,7 +19,7 @@ export const RoleScreen: React.FC = () => {
         </div>
         <div className="flex flex-col gap-4">
           <button
-            onClick={() => setScreen("register-worker")}
+            onClick={() => setScreen("location-worker")}
             className="flex flex-col items-center gap-2 p-6 rounded-2xl font-black text-xl transition-all shadow-lg hover:opacity-90"
             style={{background:"#1877F2",color:"#fff",border:"none"}}>
             <span className="text-4xl">👷</span>

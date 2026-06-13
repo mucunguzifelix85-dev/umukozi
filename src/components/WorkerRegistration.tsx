@@ -1,20 +1,15 @@
 ﻿import React, { useState } from "react";
 import { useApp } from "../context/AppContext";
 import { TRANSLATIONS, JOB_TYPES } from "../data/mockData";
-import { PROVINCES, DISTRICTS } from "../data/locations";
 import { WorkerProfile } from "../types";
 import { UmukoziLogo } from "./UmukoziLogo";
 
 export const WorkerRegistration: React.FC = () => {
-  const { language, setScreen, addWorker } = useApp();
+  const { language, setScreen, addWorker, workerLocation } = useApp();
   const t = TRANSLATIONS[language];
 
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
-  const [province, setProvince] = useState("");
-  const [district, setDistrict] = useState("");
-  const [sector, setSector] = useState("");
-  const [neighborhood, setNeighborhood] = useState("");
   const [skills, setSkills] = useState<string[]>([]);
   const [workExperience, setWorkExperience] = useState("");
   const [summary, setSummary] = useState("");
@@ -22,15 +17,13 @@ export const WorkerRegistration: React.FC = () => {
   const [availableAreas, setAvailableAreas] = useState("");
   const [error, setError] = useState("");
 
-  const districts = province ? (DISTRICTS[province] || []) : [];
-
   const toggleSkill = (job: string) => {
     setSkills(prev => prev.includes(job) ? prev.filter(j => j !== job) : [...prev, job]);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!fullName || !phone || !province || !district || !sector || !neighborhood) {
+    if (!fullName || !phone) {
       setError(t.fillAllFields);
       return;
     }
@@ -42,7 +35,12 @@ export const WorkerRegistration: React.FC = () => {
       id: "W" + Date.now(),
       fullName,
       phoneNumber: phone,
-      location: { province, district, sector, neighborhood },
+      location: {
+        province: "",
+        district: workerLocation?.district || "",
+        sector: workerLocation?.sector || "",
+        neighborhood: workerLocation?.village || ""
+      },
       skills,
       experiencedIn: workExperience ? [workExperience] : [],
       summary,
@@ -91,6 +89,25 @@ export const WorkerRegistration: React.FC = () => {
           </div>
         </div>
 
+        {/* Show selected location from LocationScreen */}
+        {workerLocation && (
+          <div className="rounded-xl p-3 mb-4 flex items-center gap-2"
+            style={{background:"#e7f3ff",border:"1.5px solid #1877F2"}}>
+            <span className="text-lg">📍</span>
+            <div>
+              <p className="text-xs font-black uppercase" style={{color:"#1877F2"}}>{t.locationStep}</p>
+              <p className="text-sm font-bold" style={{color:"#050505"}}>
+                {workerLocation.village} · {workerLocation.sector} · {workerLocation.district}
+              </p>
+            </div>
+            <button onClick={() => setScreen("location-worker")}
+              className="ml-auto text-xs font-black px-2 py-1 rounded-lg"
+              style={{background:"#1877F2",color:"#fff",border:"none"}}>
+              ✏️
+            </button>
+          </div>
+        )}
+
         {error && (
           <div className="p-3 rounded-xl mb-4 font-bold text-sm" style={{background:"#ffebe8",color:"#d32f2f",border:"1px solid #f5c6cb"}}>
             {error}
@@ -113,36 +130,6 @@ export const WorkerRegistration: React.FC = () => {
           </div>
 
           <div style={sectionStyle}>
-            <p className="text-xs font-black uppercase" style={{color:"#1877F2"}}>{t.addressInfo}</p>
-            <div>
-              <label className="text-xs font-black uppercase" style={{color:"#606770"}}>{t.province} *</label>
-              <select value={province} onChange={e => { setProvince(e.target.value); setDistrict(""); }}
-                style={inputStyle}>
-                <option value="">{t.selectProvince}</option>
-                {PROVINCES.map(p => <option key={p} value={p}>{p}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="text-xs font-black uppercase" style={{color:"#606770"}}>{t.district} *</label>
-              <select value={district} onChange={e => setDistrict(e.target.value)}
-                disabled={!province} style={{...inputStyle, opacity: !province ? 0.4 : 1}}>
-                <option value="">{t.selectDistrict}</option>
-                {districts.map(d => <option key={d} value={d}>{d}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="text-xs font-black uppercase" style={{color:"#606770"}}>{t.sectorManual} *</label>
-              <input value={sector} onChange={e => setSector(e.target.value)}
-                style={inputStyle} placeholder={t.workerPlaceholderSector} />
-            </div>
-            <div>
-              <label className="text-xs font-black uppercase" style={{color:"#606770"}}>{t.neighborhoodManual} *</label>
-              <input value={neighborhood} onChange={e => setNeighborhood(e.target.value)}
-                style={inputStyle} placeholder={t.workerPlaceholderNeighborhood} />
-            </div>
-          </div>
-
-          <div style={sectionStyle}>
             <p className="text-xs font-black uppercase" style={{color:"#1877F2"}}>{t.workExperience}</p>
             <div>
               <label className="text-xs font-black uppercase" style={{color:"#606770"}}>{t.workYouDo}</label>
@@ -157,7 +144,7 @@ export const WorkerRegistration: React.FC = () => {
                     className="px-3 py-1.5 rounded-full text-xs font-bold transition-all"
                     style={skills.includes(job)
                       ? {background:"#1877F2",color:"#fff",border:"2px solid #1877F2"}
-                      : {background:"#f0f2f5",color:"#050505",border:"2px solid #e4e6eb"}}>
+                      : {background:"#fff",color:"#050505",border:"2px solid #e4e6eb"}}>
                     {job}
                   </button>
                 ))}
@@ -192,7 +179,7 @@ export const WorkerRegistration: React.FC = () => {
             style={{background:"#1877F2",color:"#fff",border:"none"}}>
             {t.submit}
           </button>
-          <button type="button" onClick={() => setScreen("role")}
+          <button type="button" onClick={() => setScreen("location-worker")}
             className="w-full text-center font-bold text-sm py-2"
             style={{color:"#606770"}}>
             ← {t.back}

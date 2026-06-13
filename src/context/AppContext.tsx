@@ -1,20 +1,28 @@
 ﻿import React, { createContext, useContext, useState } from "react";
 import { Language, WorkerProfile, EmployerProfile } from "../types";
 
-interface AppContextType {
-  language: Language;
-  setLanguage: (l: Language) => void;
-  screen: string;
-  setScreen: (s: string) => void;
-  workers: WorkerProfile[];
-  addWorker: (w: WorkerProfile) => void;
-  employer: EmployerProfile | null;
-  setEmployer: (e: EmployerProfile) => void;
-  hasPaid: boolean;
-  setHasPaid: (v: boolean) => void;
+interface WorkerLocation {
+  district: string;
+  sector: string;
+  village: string;
 }
 
-const AppContext = createContext<AppContextType>({} as AppContextType);
+interface AppContextType {
+  language: Language;
+  setLanguage: (lang: Language) => void;
+  screen: string;
+  setScreen: (screen: string) => void;
+  workers: WorkerProfile[];
+  addWorker: (worker: WorkerProfile) => void;
+  employer: EmployerProfile | null;
+  setEmployer: (employer: EmployerProfile) => void;
+  hasPaid: boolean;
+  setHasPaid: (paid: boolean) => void;
+  workerLocation: WorkerLocation | null;
+  setWorkerLocation: (location: WorkerLocation) => void;
+}
+
+const AppContext = createContext<AppContextType | null>(null);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>("en");
@@ -22,8 +30,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [workers, setWorkers] = useState<WorkerProfile[]>([]);
   const [employer, setEmployer] = useState<EmployerProfile | null>(null);
   const [hasPaid, setHasPaid] = useState(false);
+  const [workerLocation, setWorkerLocation] = useState<WorkerLocation | null>(null);
 
-  const addWorker = (w: WorkerProfile) => setWorkers(prev => [...prev, w]);
+  const addWorker = (worker: WorkerProfile) => {
+    setWorkers(prev => [...prev, worker]);
+  };
 
   return (
     <AppContext.Provider value={{
@@ -31,12 +42,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       screen, setScreen,
       workers, addWorker,
       employer, setEmployer,
-      hasPaid, setHasPaid
+      hasPaid, setHasPaid,
+      workerLocation, setWorkerLocation
     }}>
       {children}
     </AppContext.Provider>
   );
 };
 
-export const useApp = () => useContext(AppContext);
-
+export const useApp = () => {
+  const context = useContext(AppContext);
+  if (!context) throw new Error("useApp must be used within AppProvider");
+  return context;
+};

@@ -48,6 +48,14 @@
 
 export const TRANSLATIONS: Record<string, Record<string, string>> = {
   rw: {
+    whereDoYouLive: "Utuye he?",
+    selectDistrict2: "Hitamo Akarere",
+    selectSector2: "Hitamo Umurenge",
+    selectVillage: "Hitamo Umudugudu",
+    villageLabel: "Umudugudu",
+    locationStep: "Aho Utuye",
+    continueBtn: "Komeza",
+    locationDesc: "Tanga aho utuye kugirango abakoresha bakubonere byoroshye"
     chooseLanguage: "Hitamo Ururimi",
     iAmLookingForWork: "Nshaka Akazi",
     iNeedWorker: "Nshaka Umukozi",
@@ -89,6 +97,14 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     selectSector: "Hitamo Umurenge",
   },
   en: {
+    whereDoYouLive: "Where do you live?",
+    selectDistrict2: "Select your District",
+    selectSector2: "Select your Sector",
+    selectVillage: "Select your Village",
+    villageLabel: "Village",
+    locationStep: "Your Location",
+    continueBtn: "Continue",
+    locationDesc: "Enter your location so employers can find you easily"
     chooseLanguage: "Choose Language",
     iAmLookingForWork: "I Am Looking for Work",
     iNeedWorker: "I Need a Worker",
@@ -130,6 +146,14 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     selectSector: "Select Sector",
   },
   fr: {
+    whereDoYouLive: "Où habitez-vous?",
+    selectDistrict2: "Sélectionnez votre District",
+    selectSector2: "Sélectionnez votre Secteur",
+    selectVillage: "Sélectionnez votre Village",
+    villageLabel: "Village",
+    locationStep: "Votre Localisation",
+    continueBtn: "Continuer",
+    locationDesc: "Entrez votre localisation pour que les employeurs vous trouvent facilement"
     chooseLanguage: "Choisir la Langue",
     iAmLookingForWork: "Je Cherche du Travail",
     iNeedWorker: "Je Cherche un Employé",
@@ -171,6 +195,14 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     selectSector: "Sélectionner Secteur",
   },
   sw: {
+    whereDoYouLive: "Unaishi wapi?",
+    selectDistrict2: "Chagua Wilaya yako",
+    selectSector2: "Chagua Sekta yako",
+    selectVillage: "Chagua Kijiji chako",
+    villageLabel: "Kijiji",
+    locationStep: "Mahali Unapoishi",
+    continueBtn: "Endelea",
+    locationDesc: "Ingiza mahali unapoishi ili waajiri wakupate kwa urahisi"
     chooseLanguage: "Chagua Lugha",
     iAmLookingForWork: "Natafuta Kazi",
     iNeedWorker: "Nahitaji Mfanyakazi",
@@ -212,4 +244,5 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     selectSector: "Chagua Sekta",
   }
 };
+
 
