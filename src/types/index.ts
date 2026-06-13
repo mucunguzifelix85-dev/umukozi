@@ -30,10 +30,24 @@ export interface EmployerProfile {
   registeredAt: string;
 }
 
+export interface JobPosting {
+  id: string;
+  employerId: string;
+  employerName: string;
+  employerPhone: string;
+  skillNeeded: string;
+  description: string;
+  duration: string;
+  district: string;
+  sector: string;
+  postedAt: string;
+}
+
 export interface AppState {
   language: Language;
   screen: string;
   workers: WorkerProfile[];
   employer: EmployerProfile | null;
   hasPaid: boolean;
+  jobs: JobPosting[];
 }
