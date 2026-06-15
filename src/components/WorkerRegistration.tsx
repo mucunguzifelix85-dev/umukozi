@@ -7,13 +7,13 @@ export const WorkerRegistration: React.FC = () => {
   const { setScreen, addWorker, workerLocation } = useApp();
   const photoRef = useRef<HTMLInputElement>(null);
 
-  const [fullName,    setFullName]    = useState("");
-  const [phone,       setPhone]       = useState("");
-  const [skillsText,  setSkillsText]  = useState("");
-  const [lookingFor,  setLookingFor]  = useState("");
-  const [photoPreview,setPhotoPreview]= useState<string | null>(null);
-  const [photoBase64, setPhotoBase64] = useState<string | null>(null);
-  const [error,       setError]       = useState("");
+  const [fullName,     setFullName]     = useState("");
+  const [phone,        setPhone]        = useState("");
+  const [skillsText,   setSkillsText]   = useState("");
+  const [lookingFor,   setLookingFor]   = useState("");
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const [photoBase64,  setPhotoBase64]  = useState<string | null>(null);
+  const [error,        setError]        = useState("");
 
   const handlePhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -29,10 +29,10 @@ export const WorkerRegistration: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!fullName.trim())    { setError("Please enter your full name"); return; }
-    if (!phone.trim())       { setError("Please enter your phone number"); return; }
-    if (!skillsText.trim())  { setError("Please describe your skills"); return; }
-    if (!lookingFor.trim())  { setError("Please describe the job you are looking for"); return; }
+    if (!fullName.trim())   { setError("Please enter your full name"); return; }
+    if (!phone.trim())      { setError("Please enter your phone number"); return; }
+    if (!skillsText.trim()) { setError("Please describe your skills"); return; }
+    if (!lookingFor.trim()) { setError("Please describe the job you are looking for"); return; }
 
     const worker: WorkerProfile = {
       id: "W" + Date.now(),
@@ -52,8 +52,10 @@ export const WorkerRegistration: React.FC = () => {
       registeredAt: new Date().toISOString(),
     };
     addWorker(worker);
-    alert("Profile created! Employers in your area can now find you.");
+
+    // After registration: go directly to job feed so worker sees local jobs
     setScreen("job-feed");
+    alert("Profile created! ✅ Employers in your area can now find you. Here are the latest jobs near you.");
   };
 
   const inputStyle: React.CSSProperties = {
@@ -61,7 +63,6 @@ export const WorkerRegistration: React.FC = () => {
     padding: "13px", marginTop: "5px", fontWeight: "bold",
     background: "#f0f2f5", color: "#050505", outline: "none", fontSize: "15px",
   };
-
   const sectionStyle: React.CSSProperties = {
     background: "#f0f2f5", border: "1.5px solid #e4e6eb", borderRadius: "18px",
     padding: "18px", display: "flex", flexDirection: "column", gap: "14px",
@@ -82,7 +83,6 @@ export const WorkerRegistration: React.FC = () => {
           </div>
         </div>
 
-        {/* Location */}
         {workerLocation && (
           <div className="rounded-xl p-3 mb-5 flex items-center gap-2"
             style={{ background: "#e7f3ff", border: "1.5px solid #1877F2" }}>
@@ -109,12 +109,8 @@ export const WorkerRegistration: React.FC = () => {
         )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-
-          {/* Personal info + photo */}
           <div style={sectionStyle}>
             <p className="text-xs font-black uppercase" style={{ color: "#1877F2" }}>Your Info</p>
-
-            {/* Photo row */}
             <div className="flex items-start gap-4">
               <div className="shrink-0">
                 {photoPreview ? (
@@ -140,7 +136,6 @@ export const WorkerRegistration: React.FC = () => {
                 <input ref={photoRef} type="file" accept="image/*"
                   onChange={handlePhoto} style={{ display: "none" }} />
               </div>
-
               <div className="flex-1 flex flex-col gap-3">
                 <div>
                   <label className="text-xs font-black uppercase" style={{ color: "#606770" }}>Full Name *</label>
@@ -148,7 +143,7 @@ export const WorkerRegistration: React.FC = () => {
                     style={inputStyle} placeholder="Your full name" />
                 </div>
                 <div>
-                  <label className="text-xs font-black uppercase" style={{ color: "#606770" }}>Phone Number *</label>
+                  <label className="text-xs font-black uppercase" style={{ color: "#606770" }}>Phone *</label>
                   <input value={phone} onChange={e => setPhone(e.target.value)}
                     style={inputStyle} placeholder="07XXXXXXXX" type="tel" />
                   <p className="text-[10px] font-bold mt-1" style={{ color: "#606770" }}>
@@ -159,7 +154,6 @@ export const WorkerRegistration: React.FC = () => {
             </div>
           </div>
 
-          {/* Skills — typed, not chips */}
           <div style={sectionStyle}>
             <p className="text-xs font-black uppercase" style={{ color: "#1877F2" }}>Your Skills *</p>
             <div>
@@ -175,12 +169,11 @@ export const WorkerRegistration: React.FC = () => {
             </div>
           </div>
 
-          {/* What they are looking for — typed */}
           <div style={sectionStyle}>
             <p className="text-xs font-black uppercase" style={{ color: "#1877F2" }}>What Job Are You Looking For? *</p>
             <div>
               <label className="text-xs font-black uppercase" style={{ color: "#606770" }}>
-                Describe the job you want (in a few words)
+                Describe the job you want
               </label>
               <textarea value={lookingFor} onChange={e => setLookingFor(e.target.value)}
                 rows={3} style={{ ...inputStyle, resize: "none" }}

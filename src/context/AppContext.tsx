@@ -1,7 +1,8 @@
-﻿import React, { createContext, useContext, useState } from "react";
+﻿import React, { createContext, useContext, useState, useEffect } from "react";
 import { Language, WorkerProfile, EmployerProfile, JobPosting } from "../types";
 
-export interface WorkerLocation {
+interface WorkerLocation {
+  province: string;
   district: string;
   sector: string;
   village: string;
@@ -9,127 +10,129 @@ export interface WorkerLocation {
 
 interface AppContextType {
   language: Language;
-  setLanguage: (lang: Language) => void;
+  setLanguage: (l: Language) => void;
   screen: string;
-  setScreen: (screen: string) => void;
-  workers: WorkerProfile[];
-  addWorker: (worker: WorkerProfile) => void;
-  employer: EmployerProfile | null;
-  setEmployer: (employer: EmployerProfile) => void;
-  hasPaid: boolean;
-  setHasPaid: (paid: boolean) => void;
+  setScreen: (s: string) => void;
   workerLocation: WorkerLocation | null;
-  setWorkerLocation: (location: WorkerLocation) => void;
+  setWorkerLocation: (loc: WorkerLocation) => void;
+  workers: WorkerProfile[];
+  addWorker: (w: WorkerProfile) => void;
+  employer: EmployerProfile | null;
+  setEmployer: (e: EmployerProfile) => void;
   jobs: JobPosting[];
-  addJob: (job: JobPosting) => void;
+  activeJobs: JobPosting[];
+  addJob: (j: JobPosting) => void;
+  markJobFilled: (jobId: string) => void;
 }
 
 const AppContext = createContext<AppContextType | null>(null);
 
+const now = new Date();
+const future = (h: number) => new Date(now.getTime() + h * 3600000).toISOString();
+const past   = (h: number) => new Date(now.getTime() - h * 3600000).toISOString();
+
 const SEED_JOBS: JobPosting[] = [
   {
-    id: "J001", employerId: "E001",
-    employerName: "Mutesi Christine", employerPhone: "0788100001",
-    skillNeeded: "House Cleaning / Gutsura Inzu",
-    description: "Ndashaka umunyakazi wo gutunga inzu. Akazi ni buri munsi mu gitondo. Inzu ifite ibyumba 4.",
-    duration: "Buri munsi (Daily)", district: "Gasabo", sector: "Kimironko", neighborhood: "Kibagabaga",
-    postedAt: "2026-06-10"
+    id: "J001",
+    employerId: "E001",
+    employerName: "Uwimana Jean",
+    employerPhone: "0781234567",
+    skillNeeded: "House Cleaner",
+    description: "We need a reliable house cleaner for our family home in Kimironko. The job includes sweeping, mopping, cleaning bathrooms and kitchen. Must be trustworthy and hardworking.",
+    duration: "Full time",
+    district: "Gasabo",
+    sector: "Kimironko",
+    neighborhood: "Bibare",
+    postedAt: past(2),
+    expiresAt: future(46),
+    status: "open",
   },
   {
-    id: "J002", employerId: "E002",
-    employerName: "Habimana Jean", employerPhone: "0788100002",
-    skillNeeded: "Construction / Ubwubatsi",
-    description: "Seeking experienced mason for house construction project in Remera. Work starts immediately.",
-    duration: "3 months", district: "Gasabo", sector: "Remera", neighborhood: "Rukiri I",
-    postedAt: "2026-06-11"
+    id: "J002",
+    employerId: "E002",
+    employerName: "Mukamana Alice",
+    employerPhone: "0722345678",
+    skillNeeded: "Cook / Chef",
+    description: "Looking for an experienced cook who can prepare Rwandan and international dishes. Family of 5. Morning shift only, 6am to 12pm Monday to Saturday.",
+    duration: "Part time",
+    district: "Kicukiro",
+    sector: "Niboye",
+    neighborhood: "Gahanga",
+    postedAt: past(5),
+    expiresAt: future(19),
+    status: "open",
   },
   {
-    id: "J003", employerId: "E003",
-    employerName: "Uwase Solange", employerPhone: "0788100003",
-    skillNeeded: "Cooking / Guteka",
-    description: "Je cherche une cuisinière expérimentée pour ma famille. Lundi au samedi, repas du soir inclus.",
-    duration: "Permanent", district: "Kicukiro", sector: "Kicukiro", neighborhood: "Niboye",
-    postedAt: "2026-06-12"
+    id: "J003",
+    employerId: "E003",
+    employerName: "Habimana Peter",
+    employerPhone: "0733456789",
+    skillNeeded: "Childcare / Nanny",
+    description: "We are looking for a caring and experienced nanny for our 2-year-old child. Must have experience with young children and be patient and gentle.",
+    duration: "Full time",
+    district: "Nyarugenge",
+    sector: "Nyakabanda",
+    neighborhood: "Muhima",
+    postedAt: past(1),
+    expiresAt: future(71),
+    status: "open",
   },
   {
-    id: "J004", employerId: "E004",
-    employerName: "Nkurunziza Paul", employerPhone: "0788100004",
-    skillNeeded: "Plumbing / Amazi",
-    description: "Ndashaka umuntu uzi gukora amazi mu nzu nshya. Akazi gafata iminsi ibiri.",
-    duration: "2 days", district: "Gasabo", sector: "Kimironko", neighborhood: "Bibare",
-    postedAt: "2026-06-12"
-  },
-  {
-    id: "J005", employerId: "E005",
-    employerName: "Ingabire Marie", employerPhone: "0788100005",
-    skillNeeded: "Child Care / Kubungabunga Abana",
-    description: "Looking for a responsible nanny for 2 children aged 3 and 5. Monday to Friday.",
-    duration: "Permanent", district: "Nyarugenge", sector: "Kiyovu", neighborhood: "Rugenge",
-    postedAt: "2026-06-09"
-  },
-  {
-    id: "J006", employerId: "E006",
-    employerName: "Bizimana Eric", employerPhone: "0788100006",
-    skillNeeded: "Electrical / Amashanyarazi",
-    description: "Need electrician to install wiring in new office. Must have experience with commercial buildings.",
-    duration: "1 week", district: "Kicukiro", sector: "Gikondo", neighborhood: "Kiba",
-    postedAt: "2026-06-11"
-  },
-  {
-    id: "J007", employerId: "E007",
-    employerName: "Mukamana Rose", employerPhone: "0788100007",
-    skillNeeded: "Farming / Ubuhinzi",
-    description: "Murashaka abantu bo guhinga no gutunza inka. Akazi kari mu murima mwiza.",
-    duration: "Icyumweru", district: "Musanze", sector: "Muhoza", neighborhood: "Ruhengeri",
-    postedAt: "2026-06-08"
-  },
-  {
-    id: "J008", employerId: "E008",
-    employerName: "Nsengimana Claude", employerPhone: "0788100008",
-    skillNeeded: "Security / Umurinzi",
-    description: "Seeking night security guard for commercial building. Must have ID and references.",
-    duration: "Permanent", district: "Gasabo", sector: "Kacyiru", neighborhood: "Kamatamu",
-    postedAt: "2026-06-10"
-  },
-  {
-    id: "J009", employerId: "E009",
-    employerName: "Uwimana Diane", employerPhone: "0788100009",
-    skillNeeded: "Tailoring / Gukata Imyenda",
-    description: "Recherche couturière expérimentée pour confection de vêtements sur mesure.",
-    duration: "Permanent", district: "Huye", sector: "Ngoma", neighborhood: "Matyazo",
-    postedAt: "2026-06-07"
-  },
-  {
-    id: "J010", employerId: "E010",
-    employerName: "Sebahizi Théo", employerPhone: "0788100010",
-    skillNeeded: "Driving / Gutwara Imodoka",
-    description: "Looking for a driver for family errands and school drop-off. Must have valid licence.",
-    duration: "Permanent", district: "Gasabo", sector: "Kacyiru", neighborhood: "Kamutwa",
-    postedAt: "2026-06-13"
+    id: "J004",
+    employerId: "E004",
+    employerName: "Ingabire Rose",
+    employerPhone: "0789567890",
+    skillNeeded: "Gardener",
+    description: "Need a gardener to maintain our compound, trim hedges, water plants and keep the garden clean. 3 days per week.",
+    duration: "Part time",
+    district: "Gasabo",
+    sector: "Remera",
+    neighborhood: "Rukiri",
+    postedAt: past(10),
+    expiresAt: past(1),
+    status: "expired",
   },
 ];
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>("en");
-  const [screen, setScreen] = useState("language");
-  const [workers, setWorkers] = useState<WorkerProfile[]>([]);
-  const [employer, setEmployer] = useState<EmployerProfile | null>(null);
-  const [hasPaid, setHasPaid] = useState(false);
+  const [language, setLanguage]           = useState<Language>("en");
+  const [screen, setScreen]               = useState("language");
   const [workerLocation, setWorkerLocation] = useState<WorkerLocation | null>(null);
-  const [jobs, setJobs] = useState<JobPosting[]>(SEED_JOBS);
+  const [workers, setWorkers]             = useState<WorkerProfile[]>([]);
+  const [employer, setEmployer]           = useState<EmployerProfile | null>(null);
+  const [jobs, setJobs]                   = useState<JobPosting[]>(SEED_JOBS);
 
-  const addWorker = (worker: WorkerProfile) => setWorkers(prev => [...prev, worker]);
-  const addJob = (job: JobPosting) => setJobs(prev => [job, ...prev]);
+  // Auto-expire jobs whose expiresAt has passed
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const nowIso = new Date().toISOString();
+      setJobs(prev => prev.map(j =>
+        j.status === "open" && j.expiresAt < nowIso
+          ? { ...j, status: "expired" }
+          : j
+      ));
+    }, 30000); // check every 30s
+    return () => clearInterval(interval);
+  }, []);
+
+  const activeJobs = jobs.filter(j => j.status === "open" && j.expiresAt > new Date().toISOString());
+
+  const addJob = (j: JobPosting) => setJobs(prev => [j, ...prev]);
+
+  const markJobFilled = (jobId: string) =>
+    setJobs(prev => prev.map(j => j.id === jobId ? { ...j, status: "filled" } : j));
+
+  const addWorker = (w: WorkerProfile) => setWorkers(prev => [w, ...prev]);
 
   return (
     <AppContext.Provider value={{
       language, setLanguage,
       screen, setScreen,
+      workerLocation, setWorkerLocation,
       workers, addWorker,
       employer, setEmployer,
-      hasPaid, setHasPaid,
-      workerLocation, setWorkerLocation,
-      jobs, addJob,
+      jobs, activeJobs, addJob,
+      markJobFilled,
     }}>
       {children}
     </AppContext.Provider>
@@ -137,7 +140,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 };
 
 export const useApp = () => {
-  const context = useContext(AppContext);
-  if (!context) throw new Error("useApp must be used within AppProvider");
-  return context;
+  const ctx = useContext(AppContext);
+  if (!ctx) throw new Error("useApp must be used inside AppProvider");
+  return ctx;
 };

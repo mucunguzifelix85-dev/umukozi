@@ -13,9 +13,9 @@ export interface WorkerProfile {
   fullName: string;
   phoneNumber: string;
   location: Location;
-  skillsText: string;      // typed by worker, e.g. "Cleaning, cooking, childcare"
-  lookingFor: string;      // typed by worker, e.g. "House cleaning job, full time"
-  skills: string[];        // kept for search compatibility
+  skillsText: string;
+  lookingFor: string;
+  skills: string[];
   experiencedIn: string[];
   summary?: string;
   photoUrl?: string;
@@ -44,4 +44,6 @@ export interface JobPosting {
   neighborhood: string;
   photoUrl?: string;
   postedAt: string;
+  expiresAt: string;        // ISO string — employer sets this
+  status: "open" | "filled" | "expired";  // filled = employer found worker
 }
