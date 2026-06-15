@@ -8,6 +8,7 @@ import { WorkerRegistration } from "./components/WorkerRegistration";
 import { EmployerRegistration } from "./components/EmployerRegistration";
 import { PaymentScreen } from "./components/PaymentScreen";
 import { SearchScreen } from "./components/SearchScreen";
+import { Footer } from "./components/Footer";
 
 const AppContent: React.FC = () => {
   const { screen } = useApp();
@@ -26,8 +27,11 @@ const AppContent: React.FC = () => {
 
 const App: React.FC = () => (
   <AppProvider>
-    <div className="min-h-screen">
-      <AppContent />
+    <div className="min-h-screen flex flex-col">
+      <div className="flex-1">
+        <AppContent />
+      </div>
+      <Footer />
     </div>
   </AppProvider>
 );
