@@ -1,5 +1,5 @@
 ﻿import React, { createContext, useContext, useState, useEffect } from "react";
-import { Language, WorkerProfile, EmployerProfile, JobPosting } from "../types";
+import { Language, WorkerProfile, EmployerProfile, JobPosting, Conversation, ChatMessage, ChatParticipant, MessageAttachment } from "../types";
 
 interface WorkerLocation {
   province: string;
@@ -13,6 +13,8 @@ interface AppContextType {
   setLanguage: (l: Language) => void;
   screen: string;
   setScreen: (s: string) => void;
+  activeTab: string;
+  setActiveTab: (t: string) => void;
   workerLocation: WorkerLocation | null;
   setWorkerLocation: (loc: WorkerLocation) => void;
   workers: WorkerProfile[];
@@ -23,6 +25,13 @@ interface AppContextType {
   activeJobs: JobPosting[];
   addJob: (j: JobPosting) => void;
   markJobFilled: (jobId: string) => void;
+  hasPaid: boolean;
+  setHasPaid: (v: boolean) => void;
+  currentUser: ChatParticipant;
+  conversations: Conversation[];
+  getOrCreateConversation: (otherParty: ChatParticipant) => string;
+  sendMessage: (conversationId: string, text?: string, attachment?: MessageAttachment) => void;
+  markConversationRead: (conversationId: string) => void;
 }
 
 const AppContext = createContext<AppContextType | null>(null);
@@ -97,10 +106,18 @@ const SEED_JOBS: JobPosting[] = [
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguage]           = useState<Language>("en");
   const [screen, setScreen]               = useState("language");
+  const [activeTab, setActiveTab]         = useState("home");
   const [workerLocation, setWorkerLocation] = useState<WorkerLocation | null>(null);
   const [workers, setWorkers]             = useState<WorkerProfile[]>([]);
   const [employer, setEmployer]           = useState<EmployerProfile | null>(null);
   const [jobs, setJobs]                   = useState<JobPosting[]>(SEED_JOBS);
+  const [hasPaid, setHasPaid]             = useState(true);
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+
+  // Identity used for chat — falls back to a generic "Me" participant
+  const currentUser: ChatParticipant = employer
+    ? { id: employer.id, name: employer.fullName, phoneNumber: employer.phoneNumber, photoUrl: undefined, role: "employer" }
+    : { id: "me", name: "Me", phoneNumber: "", photoUrl: undefined, role: "worker" };
 
   // Auto-expire jobs whose expiresAt has passed
   useEffect(() => {
@@ -111,7 +128,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           ? { ...j, status: "expired" }
           : j
       ));
-    }, 30000); // check every 30s
+    }, 30000);
     return () => clearInterval(interval);
   }, []);
 
@@ -124,15 +141,65 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const addWorker = (w: WorkerProfile) => setWorkers(prev => [w, ...prev]);
 
+  const getOrCreateConversation = (otherParty: ChatParticipant): string => {
+    const existing = conversations.find(c =>
+      c.participants.some(p => p.id === otherParty.id) &&
+      c.participants.some(p => p.id === currentUser.id)
+    );
+    if (existing) return existing.id;
+
+    const newConvo: Conversation = {
+      id: `conv-${Date.now()}`,
+      participants: [currentUser, otherParty],
+      messages: [],
+      updatedAt: new Date().toISOString(),
+    };
+    setConversations(prev => [newConvo, ...prev]);
+    return newConvo.id;
+  };
+
+  const sendMessage = (conversationId: string, text?: string, attachment?: MessageAttachment) => {
+    const msg: ChatMessage = {
+      id: `msg-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      conversationId,
+      senderId: currentUser.id,
+      senderName: currentUser.name,
+      text,
+      attachment,
+      sentAt: new Date().toISOString(),
+      read: false,
+    };
+    setConversations(prev => prev.map(c =>
+      c.id === conversationId
+        ? { ...c, messages: [...c.messages, msg], updatedAt: msg.sentAt }
+        : c
+    ));
+  };
+
+  const markConversationRead = (conversationId: string) => {
+    setConversations(prev => prev.map(c =>
+      c.id === conversationId
+        ? { ...c, messages: c.messages.map(m => ({ ...m, read: true })) }
+        : c
+    ));
+  };
+
   return (
     <AppContext.Provider value={{
       language, setLanguage,
       screen, setScreen,
+      activeTab, setActiveTab,
       workerLocation, setWorkerLocation,
       workers, addWorker,
       employer, setEmployer,
       jobs, activeJobs, addJob,
       markJobFilled,
+      hasPaid, setHasPaid,
+      currentUser,
+      conversations,
+      getOrCreateConversation,
+      sendMessage,
+      markConversationRead,
     }}>
       {children}
     </AppContext.Provider>

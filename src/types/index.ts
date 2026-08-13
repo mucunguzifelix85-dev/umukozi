@@ -44,6 +44,41 @@ export interface JobPosting {
   neighborhood: string;
   photoUrl?: string;
   postedAt: string;
-  expiresAt: string;        // ISO string — employer sets this
-  status: "open" | "filled" | "expired";  // filled = employer found worker
+  expiresAt: string;
+  status: "open" | "filled" | "expired";
+}
+
+export type MessageAttachmentType = "image" | "video" | "audio" | "file";
+
+export interface MessageAttachment {
+  type: MessageAttachmentType;
+  url: string;
+  name?: string;
+  mimeType?: string;
+}
+
+export interface ChatMessage {
+  id: string;
+  conversationId: string;
+  senderId: string;
+  senderName: string;
+  text?: string;
+  attachment?: MessageAttachment;
+  sentAt: string;
+  read: boolean;
+}
+
+export interface ChatParticipant {
+  id: string;
+  name: string;
+  phoneNumber: string;
+  photoUrl?: string;
+  role: UserRole;
+}
+
+export interface Conversation {
+  id: string;
+  participants: ChatParticipant[];
+  messages: ChatMessage[];
+  updatedAt: string;
 }
