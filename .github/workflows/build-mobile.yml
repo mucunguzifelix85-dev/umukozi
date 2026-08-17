@@ -1,4 +1,4 @@
-name: Build Mobile Apps
+﻿name: Build Mobile Apps
 
 on:
   push:
@@ -57,6 +57,7 @@ jobs:
       - name: Sync Capacitor
         run: npx cap sync ios
 
+      # NOTE: this builds for the Simulator only (no signing needed).
       # Real-device IPA requires certificate + provisioning profile secrets.
       - name: Build for iOS Simulator
         working-directory: ios/App
@@ -67,11 +68,20 @@ jobs:
             -sdk iphonesimulator \
             -derivedDataPath build
 
-      - name: Upload iOS build artifact
+      - name: Package unsigned IPA for Appetize
+        working-directory: ios/App
+        run: |
+          mkdir -p Payload
+          cp -r build/Build/Products/Debug-iphonesimulator/App.app Payload/
+          zip -r App.ipa Payload
+          mkdir -p ../../ipa-output
+          mv App.ipa ../../ipa-output/umukozi.ipa
+
+      - name: Upload iOS IPA artifact
         uses: actions/upload-artifact@v4
         with:
-          name: umukozi-ios-simulator
-          path: ios/App/build/Build/Products/Debug-iphonesimulator
+          name: umukozi-ios
+          path: ipa-output/umukozi.ipa
 
   release:
     needs: [build-android, build-ios]
@@ -91,4 +101,5 @@ jobs:
           name: Build ${{ github.run_number }}
           files: |
             artifacts/umukozi-android/app-debug.apk
+            artifacts/umukozi-ios/umukozi.ipa
           generate_release_notes: true
