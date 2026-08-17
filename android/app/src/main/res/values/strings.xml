@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">umukozi</string>
+    <string name="title_activity_main">umukozi</string>
+    <string name="package_name">rw.co.vafubwenge.umukozi</string>
+    <string name="custom_url_scheme">rw.co.vafubwenge.umukozi</string>
+</resources>
